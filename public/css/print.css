@@ -1,0 +1,52 @@
+@media print {
+
+    .nprint{
+        display: none;
+    }
+    header, footer, aside, nav, form, iframe, .menu, .hero, .adslot {
+        display: none;
+    }
+
+    .buttons{
+        display: none;
+    }
+
+}
+
+@page {
+    size: 8.5in 13in;
+}
+
+
+.debug{
+    border: 1px solid red;
+}
+
+
+.print-area{
+    width: 816px;
+    margin: 30px auto 0;
+}
+
+
+
+ .report-learner-info  > tr > .report-data{
+    padding-left: 10px;
+ }
+
+
+.report-subject-table{
+    border: 1px solid rgb(148, 148, 148);
+    width: 100%;
+}
+.report-subject-table > tr > th{
+    padding: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.report-subject-table > tr > td{
+    padding: 5px;
+}
+
+
+
