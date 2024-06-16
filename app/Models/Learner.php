@@ -14,11 +14,14 @@ class Learner extends Model
     protected $primaryKey = 'learner_id';
 
     protected $fillable = [
-        'student_id',
+        
         'academic_year_id',
         'grade_level',
         'learner_status',
+        'balik_aral',
+        'psa',
         'lrn',
+       
         'lname',
         'fname',
         'mname',
@@ -27,57 +30,64 @@ class Learner extends Model
         'birthdate',
         'birthplace',
         'age',
-        'last_school_attended',
-        
-        'country',
-        'province',
-        'city',
-        'barangay',
-        'street',
-        'zipcode',
 
+        'mother_tongue',
+        'is_indigenous',
+        'is_4ps',
+
+        //'last_school_attended',
         
+        'current_country',
+        'current_province',
+        'current_city',
+        'current_barangay',
+        'current_street',
+        'current_zipcode',
+
+        'permanent_country',
+        'permanent_province',
+        'permanent_city',
+        'permanent_barangay',
+        'permanent_street',
+        'permanent_zipcode',
 
         'email',
         'contact_no',
         'religion',
 
         'mother_tongue',
-        'ip',
+        
 
         'father_lname',
         'father_fname',
         'father_mname',
         'father_extension',
         'father_contact_no',
-        'father_education',
-        'father_religion',
         
         'mother_maiden_lname',
         'mother_maiden_fname',
         'mother_maiden_mname',
         'mother_maiden_contact_no',
-        'mother_education',
-        'mother_education',
-        'mother_religion',
 
         'guardian_lname',
         'guardian_fname',
         'guardian_mname',
         'guardian_extension',
         'guardian_contact_no',
-        'guardian_relationship',
 
 
-        // 'last_grade_level_completed',
-        // 'last_school_year_completed',
-        // 'last_school_attended',
-        // 'last_schoold_id',
+        'last_grade_level',
+        'last_year_completed',
+        'last_school_attended',
+        'last_school_id',
 
         'semester_id',
         'senior_high_school_id',
         'track_id',
         'strand_id',
+
+        'administer_by',
+        'ip',
 
     ];
 

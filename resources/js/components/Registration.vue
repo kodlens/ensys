@@ -93,15 +93,15 @@
                                 </div>
                             </div>
                             <div class="columns">
-                                <!-- <div class="column">
-                                    <b-field label="PSA Birth Certificate No."
+                                <div class="column">
+                                    <!-- <b-field label="PSA Birth Certificate No."
                                             :type="this.errors.psa_birth_no ? 'is-danger':''"
                                             :message="this.errors.psa_birth_no ? this.errors.psa_birth_no[0] : ''" >
                                         <b-input icon="account" placeholder="PSA Certificate No." 
                                             v-model="fields.psa_birth_no" 
                                             type="text"></b-input>
-                                    </b-field>
-                                </div> -->
+                                    </b-field> -->
+                                </div>
 
                                 <div class="column">
                                     <b-field label="LRN"
