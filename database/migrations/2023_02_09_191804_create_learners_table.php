@@ -19,7 +19,7 @@ class CreateLearnersTable extends Migration
             $table->unsignedBigInteger('academic_year_id');
             $table->foreign('academic_year_id')->references('academic_year_id')->on('academic_years')
                 ->onUpdate('cascade')->onDelete('cascade');
-
+            $table->string('student_id', 15)->nullable();
             $table->string('grade_level', 15)->nullable();
             $table->string('balik_aral', 15)->nullable();
 
@@ -35,10 +35,13 @@ class CreateLearnersTable extends Migration
             $table->string('birthplace', 100)->nullable();
             $table->string('age', 3)->nullable();
 
-            $table->string('mother_tongue')->nullable();
+            $table->string('mother_tongue', 50)->nullable();
 
             $table->tinyInteger('is_indigenous')->default(0);
+            $table->string('if_yes_indigenous', 255)->nullable();
+
             $table->tinyInteger('is_4ps')->default(0);
+            $table->string('household_4ps_id_no', 20)->nullable();
       
             $table->string('current_country')->nullable();
             $table->string('current_province')->nullable();
@@ -96,6 +99,7 @@ class CreateLearnersTable extends Migration
 
 
             $table->string('administer_by', 30)->nullable();
+            $table->string('last_update_by', 30)->nullable();
             $table->string('ip', 30)->nullable();
 
             $table->timestamps();

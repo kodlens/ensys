@@ -45,7 +45,7 @@
         <b-navbar>
             <template #brand>
                 <b-navbar-item>
-                    <img src="/img/tudela_logo.png" />
+                    <img src="/img/tcnhs_logo.png" />
                     @auth()
                         {{ Auth::user()->role }}
                     @else

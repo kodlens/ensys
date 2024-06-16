@@ -58,7 +58,7 @@ class LearnerSeeder extends Seeder
                 'guardian_lname' => 'DELA CRUZ',
                 'guardian_fname' => 'JUAN',
                 'guardian_mname' => '',
-                'guardian_contanct_no' => '09161231235',
+                'guardian_contact_no' => '09161231235',
 
                 'semester_id' => 1,
                 'track_id' => 1,
@@ -107,7 +107,7 @@ class LearnerSeeder extends Seeder
                 'guardian_lname' => 'DELA CRUZ',
                 'guardian_fname' => 'JUAN',
                 'guardian_mname' => '',
-                'guardian_contanct_no' => '09161231235',
+                'guardian_contact_no' => '09161231235',
 
                 'semester_id' => 1,
                 'track_id' => 1,

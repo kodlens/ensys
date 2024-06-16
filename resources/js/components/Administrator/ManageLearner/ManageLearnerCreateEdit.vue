@@ -169,6 +169,77 @@
                                 </div>
                             </div>
 
+                            <div class="columns">
+                                  <div class="column">
+                                    <b-field label="Mother Tongue"
+                                        :type="this.errors.mother_tongue ? 'is-danger':''"
+                                        :message="this.errors.mother_tongue ? this.errors.mother_tongue[0] : ''">
+                                        <b-input type="text" 
+                                            icon="account-voice"
+                                            v-model="fields.mother_tongue" 
+                                            maxlength="50"
+                                            placeholder="Mother Tongue"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Belong in Indigenous Peoples?"
+                                            expanded
+                                            :type="this.errors.is_indigenous ? 'is-danger':''"
+                                            :message="this.errors.is_indigenous ? this.errors.is_indigenous[0] : ''">
+                                        <b-select expanded
+                                            required
+                                            icon="keyboard-return"
+                                            placeholder="Belong in Indigenous Peoples?"
+                                            v-model="fields.is_indigenous">
+                                            <option :value="1">YES</option>
+                                            <option :value="0">NO</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                <div v-if="fields.is_indigenous === 1" class="column">
+                                    <b-field label="If YES, Please specify"
+                                        :type="this.errors.if_yes_indigenous ? 'is-danger':''"
+                                        :message="this.errors.if_yes_indigenous ? this.errors.if_yes_indigenous[0] : ''">
+                                        <b-input type="text" 
+                                            icon="account-voice"
+                                            v-model="fields.if_yes_indigenous" 
+                                            maxlength="50"
+                                            placeholder="If YES, Please specify"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Beneficiary of 4Ps?"
+                                            expanded
+                                            :type="this.errors.is_4ps ? 'is-danger':''"
+                                            :message="this.errors.is_4ps ? this.errors.is_4ps[0] : ''">
+                                        <b-select expanded
+                                            required
+                                            icon="keyboard-return"
+                                            placeholder="Beneficiary of 4Ps?"
+                                            v-model="fields.is_4ps">
+                                            <option :value="1">YES</option>
+                                            <option :value="0">NO</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                <div v-if="fields.is_4ps === 1" class="column">
+                                    <b-field label="If YES, Please input 4Ps Household Id No."
+                                        :type="this.errors.household_4ps_id_no ? 'is-danger':''"
+                                        :message="this.errors.household_4ps_id_no ? this.errors.household_4ps_id_no[0] : ''">
+                                        <b-input type="text" 
+                                            icon="account-voice"
+                                            v-model="fields.household_4ps_id_no" 
+                                            maxlength="50"
+                                            placeholder="If YES, Please input 4Ps Household Id No."></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
 
                             <!-- Current Address -->
 
@@ -179,19 +250,19 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Province" expanded
-                                             :type="this.errors.province ? 'is-danger':''"
-                                             :message="this.errors.province ? this.errors.province[0] : ''">
-                                        <b-select v-model="fields.province" expanded placeholder="Province" @input="loadCities">
-                                            <option v-for="(item, index) in provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
+                                        :type="this.errors.current_province ? 'is-danger':''"
+                                        :message="this.errors.current_province ? this.errors.current_province[0] : ''">
+                                        <b-select v-model="fields.current_province" expanded placeholder="Province" @input="loadCurrentCities">
+                                            <option v-for="(item, index) in current_provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="City/Municipality" expanded
-                                             :type="this.errors.city ? 'is-danger':''"
-                                             :message="this.errors.city ? this.errors.city[0] : ''">
-                                        <b-select expanded v-model="fields.city" placeholder="City" @input="loadBarangays">
-                                            <option v-for="(item, index) in cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
+                                             :type="this.errors.current_city ? 'is-danger':''"
+                                             :message="this.errors.current_city ? this.errors.current_city[0] : ''">
+                                        <b-select expanded v-model="fields.current_city" placeholder="City" @input="loadCurrentBarangays">
+                                            <option v-for="(item, index) in current_cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -200,10 +271,10 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Barangay" expanded
-                                             :type="this.errors.barangay ? 'is-danger':''"
-                                             :message="this.errors.barangay ? this.errors.barangay[0] : ''">
-                                        <b-select v-model="fields.barangay" expanded placeholder="Barangay">
-                                            <option v-for="(item, index) in barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
+                                             :type="this.errors.current_barangay ? 'is-danger':''"
+                                             :message="this.errors.current_barangay ? this.errors.current_barangay[0] : ''">
+                                        <b-select v-model="fields.current_barangay" expanded placeholder="Barangay">
+                                            <option v-for="(item, index) in current_barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -230,21 +301,81 @@
 
 
 
+                            <!-- Permanent Address -->
+
+                            <div class="mb-2">
+                                <h2><span>Permanent Address</span></h2>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Province" expanded
+                                :type="this.errors.permanent_province ? 'is-danger':''"
+                                        :message="this.errors.permanent_province ? this.errors.permanent_province[0] : ''">
+                                        <b-select v-model="fields.permanent_province" expanded placeholder="Province" @input="loadPermanentCities">
+                                            <option v-for="(item, index) in permanent_provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                <div class="column">
+                                    <b-field label="City/Municipality" expanded
+                                             :type="this.errors.permanent_city ? 'is-danger':''"
+                                             :message="this.errors.permanent_city ? this.errors.permanent_city[0] : ''">
+                                        <b-select expanded v-model="fields.permanent_city" placeholder="City" @input="loadPermanentBarangays">
+                                            <option v-for="(item, index) in permanent_cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Barangay" expanded
+                                             :type="this.errors.permanent_barangay ? 'is-danger':''"
+                                             :message="this.errors.permanent_barangay ? this.errors.permanent_barangay[0] : ''">
+                                        <b-select v-model="fields.permanent_barangay" expanded placeholder="Barangay">
+                                            <option v-for="(item, index) in permanent_barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                <div class="column">
+                                    <b-field label="House #. Street">
+                                        <b-input type="text"
+                                            v-model="fields.permanent_street"
+                                            placeholder="House #. Street"></b-input>
+                                    </b-field>
+                                </div>
+
+                                <div class="column">
+                                    <b-field label="Zip Code"
+                                        :type="this.errors.permanent__zipcode ? 'is-danger':''"
+                                        :message="this.errors.permanent__zipcode ? this.errors.permanent__zipcode[0] : ''">
+                                        <b-input type="text"
+                                            v-model="fields.permanent__zipcode"
+                                            placeholder="Zip Code"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <!-- Permanent Address -->
+
+
+
                             <!-- Parents/Guardians Information -->
                             <div class="divider">PARENTS/GUARDIANS INFORMATION</div>
 
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Father Last Name"
-                                             :type="this.errors.father_lname ? 'is-danger':''"
-                                             :message="this.errors.father_lname ? this.errors.father_lname[0] : ''" >
+                                        :type="this.errors.father_lname ? 'is-danger':''"
+                                        :message="this.errors.father_lname ? this.errors.father_lname[0] : ''" >
                                         <b-input icon="account" placeholder="Father Last Name" v-model="fields.father_lname" type="text"></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="Father First Name"
-                                             :type="this.errors.father_fname ? 'is-danger':''"
-                                             :message="this.errors.father_fname ? this.errors.father_fname[0] : ''">
+                                        :type="this.errors.father_fname ? 'is-danger':''"
+                                        :message="this.errors.father_fname ? this.errors.father_fname[0] : ''">
                                         <b-input icon="account" v-model="fields.father_fname" placeholder="Father First Name" type="text"></b-input>
                                     </b-field>
                                 </div>
@@ -261,33 +392,18 @@
                                 <div class="column">
                                     <b-field label="Father Extension">
                                         <b-input v-model="fields.father_extension"
-                                                 icon="account" type="text" placeholder="Father Extension"></b-input>
+                                            icon="account" type="text" placeholder="Father Extension"></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="Father Contact No."
-                                             :type="this.errors.father_contact_no ? 'is-danger':''"
-                                             :message="this.errors.father_contact_no ? this.errors.father_contact_no[0] : ''" >
+                                        :type="this.errors.father_contact_no ? 'is-danger':''"
+                                        :message="this.errors.father_contact_no ? this.errors.father_contact_no[0] : ''" >
                                         <b-input type="tel"
-                                                 v-model="fields.father_contact_no"
-                                                 icon="cellphone"
-                                                 pattern="^(09|\+639)\d{9}$"
-                                                 placeholder="Format: 09101112222"></b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Father Educ'l Attn">
-                                        <b-input v-model="fields.father_education"
-                                            icon="account" type="text" placeholder="Father Educ'l Attn"></b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="Father Religion">
-                                        <b-input v-model="fields.father_religion"
-                                            icon="account" type="text" placeholder="Father Religion"></b-input>
+                                            v-model="fields.father_contact_no"
+                                            icon="cellphone"
+                                            pattern="^(09|\+639)\d{9}$"
+                                            placeholder="Format: 09101231234"></b-input>
                                     </b-field>
                                 </div>
                             </div>
@@ -335,22 +451,6 @@
                                     </b-field>
                                 </div>
                             </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Mother Educ'l Attn">
-                                        <b-input v-model="fields.mother_education"
-                                             icon="account" type="text" placeholder="Mother Educ'l Attn"></b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="Mother Religion">
-                                        <b-input v-model="fields.mother_religion"
-                                            icon="account" type="text" placeholder="Mother Religion"></b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
 
                             <hr>
 
@@ -421,7 +521,7 @@
                                                 icon="star"
                                                 placeholder="Grade Level"
                                                 v-model="fields.last_grade_level">
-                                                <option :value="{ grade_level: item.grade_level, curriculum_code: item.curriculum_code }"
+                                                <option :value="item.grade_level"
                                                         v-for="(item, ix) in gradeLevels" :key="`g${ix}`">
                                                     {{ item.grade_level }}
                                                 </option>
@@ -557,13 +657,13 @@ export default {
             id: 0,
 
             fields: {
-
+                student_id: null,
                 lrn: null,
                 grade_level: {
                     grade_level: null,
                     curriculum_code: null
                 },
-                learner_status: null,
+                balik_aral: null,
                
                 lname: null,
                 fname: null,
@@ -603,8 +703,10 @@ export default {
                 guardian_mname: null,
                 guardian_contact_no: null,
 
-
+                last_grade_level: null,
+                last_year_completed: null,
                 last_school_attended: null,
+                last_school_id: null,
 
 
                 semester: null,
@@ -617,9 +719,13 @@ export default {
 
             gradeLevels: [],
   
-            provinces: [],
-            cities: [],
-            barangays: [],
+            current_provinces: [],
+            current_cities: [],
+            current_barangays: [],
+
+            permanent_provinces: [],
+            permanent_cities: [],
+            permanent_barangays: [],
 
             semesters: [],
             tracks: [],
@@ -637,20 +743,37 @@ export default {
         //ADDRESS
         loadProvinces: function(){
             axios.get('/load-provinces').then(res=>{
-                this.provinces = res.data;
+                this.current_provinces = res.data;
+                this.permanent_provinces = res.data;
             })
         },
-        loadCities: function(){
-            axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
-                this.cities = res.data;
+        loadCurrentCities: function(){
+            axios.get('/load-cities?prov=' + this.fields.current_province).then(res=>{
+                this.current_cities = res.data;
             })
         },
 
-        loadBarangays: function(){
-            axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
-                this.barangays = res.data;
+        loadCurrentBarangays: function(){
+            axios.get('/load-barangays?prov=' + this.fields.current_province + '&city_code='+this.fields.current_city).then(res=>{
+                this.current_barangays = res.data;
             })
         },
+
+        loadPermanentCities: function(){
+            axios.get('/load-cities?prov=' + this.fields.permanent_province).then(res=>{
+                this.permanent_cities = res.data;
+            })
+        },
+
+        loadPermanentBarangays: function(){
+            axios.get('/load-barangays?prov=' + this.fields.permanent_province + '&city_code='+this.fields.permanent_city).then(res=>{
+                this.permanent_barangays = res.data;
+            })
+        },
+
+
+
+
         //ADDRESS
 
         loadSemesters(){
@@ -676,15 +799,20 @@ export default {
         },
 
         computeAge() {
-            var today = new Date();
-            var birthDate = new Date(this.fields.birthdate);
-            var age = today.getFullYear() - birthDate.getFullYear();
-            var m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
+            if(this.fields.birthdate != null){
+                var today = new Date();
+                var birthDate = new Date(this.fields.birthdate);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
 
-            this.fields.age = age
+                this.fields.age = age
+            }else{
+                return 0
+            }
+           
         },
 
 
@@ -692,8 +820,18 @@ export default {
 
 
         submit(){
-            this.btnClass['is-loading'] = true
             this.errors = {}; //clear all errors, to refresh errors
+            if(this.fields.birthdate ==  null){
+                this.$buefy.dialog.alert({
+                    title: "EMPTY!",
+                    message: 'Birthdate is empty.',
+                    type: 'is-danger',
+                    onConfirm: ()=>  {
+                        return;
+                    }
+                });
+            }
+
 
             //alternative
             const formatted_bdate = this.fields.birthdate.getFullYear() + '-' 
@@ -705,6 +843,7 @@ export default {
 
             if(this.id > 0){
                 /* update */
+                this.btnClass['is-loading'] = true
                 axios.put('/manage-learners/' + this.id, this.fields).then(res=>{
                     this.btnClass['is-loading'] = false
 
@@ -733,9 +872,11 @@ export default {
                 });
             }else{
                 /* insert */
-                this.btnClass['is-loading'] = false
+                this.btnClass['is-loading'] = true
 
                 axios.post('/manage-learners', this.fields).then(res=>{
+                    this.btnClass['is-loading'] = false
+
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: "SAVED!",
@@ -789,10 +930,9 @@ export default {
 
             this.fields.grade_level = { grade_level: data.grade_level.grade_level, curriculum_code: data.grade_level.curriculum_code }
             console.log(data.grade_level);
-            //this.fields.is_returnee = data.is_returnee
-            //this.fields.psa = data.psa
-            this.fields.learner_status = data.learner_status
-
+            this.fields.balik_aral = data.balik_aral
+            this.fields.psa = data.psa
+            
             this.fields.lrn = data.lrn
             this.fields.lname = data.lname
             this.fields.fname = data.fname
@@ -802,20 +942,27 @@ export default {
             this.fields.birthdate = new Date(data.birthdate)
             this.fields.birthplace = data.birthplace
             this.fields.age = data.age
-            // this.fields.mother_tongue = data.mother_tongue
-            // this.fields.is_indigenous = data.is_indigenous
-            // this.fields.if_yes_indigenous = data.if_yes_indigenous
-            // this.fields.is_4ps = data.is_4ps
-            // this.fields.household_4ps_id_no = data.household_4ps_id_no
-            this.fields.last_school_attended = data.last_school_attended
+            this.fields.mother_tongue = data.mother_tongue
+            this.fields.is_indigenous = data.is_indigenous
+            this.fields.if_yes_indigenous = data.if_yes_indigenous
+            this.fields.is_4ps = data.is_4ps
+            this.fields.household_4ps_id_no = data.household_4ps_id_no
+          
+            this.fields.current_province = data.current_province ? data.current_province.provCode : null
+            await this.loadCurrentCities()
+            this.fields.current_city = data.current_city ? data.current_city.citymunCode : null
+            await this.loadCurrentBarangays()
+            this.fields.current_barangay = data.current_barangay ? data.current_barangay.brgyCode : null
+            this.fields.current_street = data.current_street
+            this.fields.current_zipcode = data.current_zipcode
 
-            this.fields.province = data.province ? data.province.provCode : null
-            await this.loadCities()
-            this.fields.city = data.city ? data.city.citymunCode : null
-            await this.loadBarangays()
-            this.fields.barangay = data.barangay ? data.barangay.brgyCode : null
-            this.fields.street = data.street
-            this.fields.zipcode = data.zipcode
+             this.fields.permanent_province = data.permanent_province ? data.permanent_province.provCode : null
+            await this.loadPermanentCities()
+            this.fields.permanent_city = data.permanent_city ? data.permanent_city.citymunCode : null
+            await this.loadPermanentBarangays()
+            this.fields.permanent_barangay = data.permanent_barangay ? data.permanent_barangay.brgyCode : null
+            this.fields.permanent_street = data.permanent_street
+            this.fields.permanent_zipcode = data.permanent_zipcode
 
        
             this.fields.father_lname = data.father_lname
@@ -834,13 +981,21 @@ export default {
             this.fields.guardian_mname = data.guardian_mname
             this.fields.guardian_contact_no = data.guardian_contact_no
 
-            this.fields.semester_id = data.semester_id
-            //this.fields.senior_high_school_id = data.senior_high_school_id
 
+            this.fields.last_grade_level = data.last_grade_level
+            this.fields.last_year_completed = data.last_year_completed
+            this.fields.last_school_attended = data.last_school_attended
+            this.fields.last_school_id = data.last_school_id
+
+            this.fields.semester_id = data.semester_id
+            this.fields.senior_high_school_id = data.senior_high_school_id
             this.fields.track_id = data.track_id
             await this.loadStrands()
             this.fields.strand_id = data.strand_id
             
+            
+        
+
             this.btnClass['is-loading'] = false
 
         },

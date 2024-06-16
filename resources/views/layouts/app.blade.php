@@ -75,8 +75,8 @@
         <b-navbar>
             <template #brand>
                 <b-navbar-item>
-                    <img src="/img/tudela_logo.png" />
-                    ENROLMENT SYSTEM
+                    <img src="/img/tcnhs_logo.png" />
+                    <span class="ml-2">ENSYS</span>
                 </b-navbar-item>
             </template>
     

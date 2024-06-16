@@ -26,12 +26,12 @@ class RegistrationController extends Controller
 
 
     public function store(Request $req){
-
-        //$qr_code = substr(md5(time() . $req->lname . $req->fname), -8);
         $req->validate([
 
             'grade_level' => ['required'],
-            'is_returnee' => ['required'],
+            'balik_aral' => ['required', 'string'],
+            'psa' => ['required', 'string', 'max:15'],
+            'lrn' => ['string', 'max:15'],
 
             'lname' => ['required', 'string', 'max:50'],
             'fname' => ['required', 'string', 'max:50'],
@@ -39,106 +39,52 @@ class RegistrationController extends Controller
             'birthdate' => ['required'],
             
             'age' => ['required'],
-            'mother_tongue' => ['required'],
+
+            'mother_tongue' => ['required', 'string', 'max:50'],
 
             'is_indigenous' => ['required'],
+            'if_yes_indigenous' => ['required_if:is_indigenous,1'],
+
             'is_4ps' => ['required'],
+            'household_4ps_id_no' => ['required_if:is_4ps,1'],
 
-            'current_province' => ['required'],
-            'current_city' => ['required'],
-            'current_barangay' => ['required'],
-            'current_zipcode' => ['max:15'],
+            'current_province' => ['required', 'string'],
+            'current_city' => ['required', 'string'],
+            'current_barangay' => ['required', 'string'],
+            //'current_zipcode' => ['max:15', 'string'],
 
-            'guardian_lname' => ['required'],
-            'guardian_fname' => ['required'],
+            'permanent_province' => ['required', 'string'],
+            'permanent_city' => ['required', 'string'],
+            'permanent_barangay' => ['required', 'string'],
+            //'permanent_zipcode' => ['max:15', 'string'],
+
+            'guardian_lname' => ['required', 'string'],
+            'guardian_fname' => ['required', 'string'],
             'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
 
-            'if_yes_indigenous' => Rule::requiredIf(function () use ($req){
-                return $req->is_indigenous == 1 ? true : false;
-            }),
-            'household_4ps_id_no' => Rule::requiredIf(function () use ($req){
-                return $req->is_4ps == 1 ? true : false;
-            }),
+            'last_grade_level' => ['required_if:balik_aral,YES'],
+            'last_year_completed' => ['required_if:balik_aral,YES'],
+            'last_school_attended' => ['required_if:balik_aral,YES'],
+            'last_school_id' => ['required_if:balik_aral,YES'],
 
-            //==================================================================================//
-            //=-----------if senior high school required this fields-----------------=//
-            'semester_id' => Rule::requiredIf(function () use ($req){
-                if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'senior_high_school_id' => Rule::requiredIf(function () use ($req){
-                if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'track_id' => Rule::requiredIf(function () use ($req){
-                if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'strand_id' => Rule::requiredIf(function () use ($req){
-                if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            /* ==================================== */
-            /* end required fields if senior highschool */
+            'semester_id' => ['required_if:grade_level.curriculum_code,SHS'],
+            'track_id' => ['required_if:grade_level.curriculum_code,SHS'],
+            'strand_id' => ['required_if:grade_level.curriculum_code,SHS'],
 
-            /* required if returnee*/
-            'last_grade_level_completed' => Rule::requiredIf(function () use ($req){
-                if($req->is_returnee == 1){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'last_school_year_completed' => Rule::requiredIf(function () use ($req){
-                if($req->is_returnee == 1){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'last_school_attended' => Rule::requiredIf(function () use ($req){
-                if($req->is_returnee == 1){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
-            'last_schoold_id' => Rule::requiredIf(function () use ($req){
-                if($req->is_returnee == 1){
-                    return true;
-                }else{
-                    return false;
-                }
-            }),
         ],[
             'guardian_contact_no.regex' => 'Please enter a valid Philippines mobile phone number.',
-            'if_yes_indigenous.required' => 'This field is required since you belong to indigenous.',
-            'household_4ps_id_no.required' => 'This field is required since you are a 4ps member.',
 
-            'semester_id.required' => 'This field is required since you are a senior high.',
-            'senior_high_school_id.required' => 'This field is required since you are a senior high.',
-            'track_id.required' => 'This field is required since you are a senior high.',
-            'strand_id.required' => 'This field is required since you are a senior high.',
-            
+            'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
+            'track_id.required_if' => 'Curriculum is SHS, track is required.',
+            'strand_id.required_if' => 'Curriculum is SHS, strand is required.',
+                        
             'last_grade_level_completed.required' => 'This field is required since you are a returnee student.',
             'last_school_year_completed.required' => 'This field is required since you are a returnee student.',
             'last_school_attended.required' => 'This field is required since you are a returnee student.',
             'last_schoold_id.required' => 'This field is required since you are a returnee student.'
 
         ]);
-
+        
         /* adding other validation checking for fullname duplicate */
         $existLearner = Learner::where('lname', $req->lname)
             ->where('fname', $req->fname)
@@ -152,88 +98,61 @@ class RegistrationController extends Controller
                 ]
             ], 422);
         }
+
         DB::beginTransaction();
 
         try {
 
-            /* if not a senior high, set default value */
-            $semesterId = 0;
-            $trackId = 0;
-            $strandId = 0;
-            $seniorHighSchoolId = '';
-            if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                $semesterId = $req->semester_id;
-                $trackId = $req->track_id;
-                $strandId = $req->strand_id;
-                $seniorHighSchoolId = $req->senior_high_school_id;
-            }
-            /* end setting default value for senior high */
+            $data = Learner::where('learner_id', $id)
+            ->update([
 
-
-            /* if not a returnee setup default data */
-            $lastGradeLevelCompleted = null;
-            $lastSchoolYearCompleted = null;
-            $lastSchoolAttended = null;
-            $lastSchoolId = null;
-
-            if($req->is_returnee > 0){
-
-                $lastGradeLevelCompleted = strtoupper($req->last_grade_level_completed);
-                $lastSchoolYearCompleted = strtoupper($req->last_school_year_completed);
-                $lastSchoolAttended = strtoupper($req->last_school_attended);
-                $lastSchoolId = strtoupper($req->last_schoold_id);
-            }
-            /* ===========END=============== */
-
-
-            /*inserting data to database*/
-            $data = Learner::create([
-
-                'grade_level' => $req->grade_level,
-                'is_returnee' => $req->is_returnee,
-
-                'psa_cert' => $req->psa_cert,
+                'academic_year_id' => $ay->academic_year_id,
+                'grade_level' => $req->grade_level['grade_level'],
+                'balik_aral' => $req->balik_aral,
+                'psa' => $req->psa,
                 'lrn' => $req->lrn,
                 'lname' => strtoupper($req->lname),
                 'fname' => strtoupper($req->fname),
                 'mname' => strtoupper($req->mname),
                 'extension' => strtoupper($req->suffix),
                 'sex' => $req->sex,
-                'birthdate' => date('Y-m-d', strtotime($req->birthdate)),
+                'birthdate' => date('Y-m-d', strtotime($req->formatted_bdate)),
                 'age' => $req->age,
                 'birthplace' => strtoupper($req->birthplace),
-
+                
                 'mother_tongue' => strtoupper($req->mother_tongue),
+        
                 'is_indigenous' => $req->is_indigenous,
-                'if_yes_indigenous' => $req->is_indigenous ? $req->if_yes_indigenous : null,
+                'if_yes_indigenous' => strtoupper($req->if_yes_indigenous),
+
                 'is_4ps' => $req->is_4ps,
-                'household_4ps_id_no' => $req->is_4ps ? $req->household_4ps_id_no : null,
+                'household_4ps_id_no' => strtoupper($req->household_4ps_id_no),
 
                 'current_province' => $req->current_province,
                 'current_city' => $req->current_city,
                 'current_barangay' => $req->current_barangay,
                 'current_street' => strtoupper($req->current_street),
                 'current_zipcode' => $req->current_zipcode,
-
+                // 'religion' => $req->religion,
+                // 'email' => $req->email,
+                // 'contact_no' => $req->contact_no,
                 'permanent_province' => $req->permanent_province,
                 'permanent_city' => $req->permanent_city,
                 'permanent_barangay' => $req->permanent_barangay,
                 'permanent_street' => strtoupper($req->permanent_street),
                 'permanent_zipcode' => $req->permanent_zipcode,
 
-                //'email' => $req->email,
-                //'contact_no' => $req->contact_no,
-
                 'father_lname' => strtoupper($req->father_lname),
                 'father_fname' => strtoupper($req->father_fname),
                 'father_mname' => strtoupper($req->father_mname),
-                'father_extension' => strtoupper($req->father_mname),
+                'father_extension' => strtoupper($req->father_extension),
                 'father_contact_no' => $req->father_contact_no,
-
+        
                 'mother_maiden_lname' => strtoupper($req->mother_maiden_lname),
                 'mother_maiden_fname' => strtoupper($req->mother_maiden_fname),
                 'mother_maiden_mname' => strtoupper($req->mother_maiden_mname),
                 'mother_maiden_contact_no' => $req->mother_maiden_contact_no,
+        
 
                 'guardian_lname' => strtoupper($req->guardian_lname),
                 'guardian_fname' => strtoupper($req->guardian_fname),
@@ -241,79 +160,27 @@ class RegistrationController extends Controller
                 'guardian_extension' => strtoupper($req->guardian_mname),
                 'guardian_contact_no' => $req->guardian_contact_no,
 
-                'last_grade_level_completed' => $lastGradeLevelCompleted,
-                'last_school_year_completed' => $lastSchoolYearCompleted,
-                'last_school_attended' => $lastSchoolAttended,
-                'last_schoold_id' => $lastSchoolId,
+                'last_grade_level' =>  $req->last_grade_level,
+                'last_year_completed' => $req->last_year_completed,
+                'last_school_attended' => strtoupper($req->last_school_attended),
+                'last_school_id' => strtoupper($req->last_school_id),
 
-                'semester_id' => $semesterId,
-                'senior_high_school_id' => $seniorHighSchoolId,
-                'track_id' => $trackId,
-                'strand_id' => $strandId,
+
+                'senior_high_school_id' => strtoupper($req->senior_high_school_id),
+                'semester_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->semester_id : null,
+                'track_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->track_id : null,
+                'strand_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->strand_id : null,
+
+                'administer_by' => 'SELF',
+
             ]);
 
-
-            $ay = AcademicYear::where('is_active', 1)->first();
-            $flag = 0;
-            if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                $sections = Section::where('track_id', $trackId)
-                    ->where('strand_id', $strandId)
-                    ->get();
-
-                foreach ($sections as $item){
-                    $enrolCount = Enrol::where('track_id', $trackId)
-                        ->where('strand_id', $strandId)
-                        ->where('academic_year_id', $ay->academic_year_id)
-                        ->where('section_id', $item['section_id'])
-                        ->count();
-
-                    if($enrolCount < $item['max']){
-                        /* add to enrolment */
-                        $flag = 1;
-                        Enrol::create([
-                            'academic_year_id' => $ay->academic_year_id,
-                            'grade_level' => $req->grade_level,
-                            'is_returnee' => $req->is_returnee,
-                            'learner_id' => $data->learner_id,
-                            'semester_id' => $semesterId,
-                            'track_id' => $trackId,
-                            'strand_id' => $strandId,
-                            'section_id' => $item['section_id'],
-                            'section' => $item['section'],
-                            'date_enroled' => date('Y-m-d')
-                        ]);
-                        break;
-                        //exit loop
-                    }
-                }
-            }else{
-                //not grade 11 and not grade 12
-                Enrol::create([
-                    'academic_year_id' => $ay->academic_year_id,
-                    'grade_level' => $req->grade_level,
-                    'is_returnee' => $req->is_returnee,
-                    'learner_id' => $data->learner_id,
-                    'semester_id' => $semesterId,
-                    'track_id' => $trackId,
-                    'strand_id' => $strandId,
-                    'section_id' => 0,
-                    'section' => $req->grade_level,
-                    'date_enroled' => date('Y-m-d')
-                ]);
-            }
-            //if grade 11 and grade 12 for sectioning
+        return response()->json([
+            'status' => 'updated'
+        ],200);
 
             // If all operations are successful, commit the transaction
             DB::commit();
-
-            if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
-                if($flag == 0){
-                    return response()->json([
-                        'status' => 'reg'
-                    ],200);
-                }
-            }
-
 
             return response()->json([
                 'status' => 'saved'

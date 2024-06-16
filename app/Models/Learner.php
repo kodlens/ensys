@@ -14,7 +14,7 @@ class Learner extends Model
     protected $primaryKey = 'learner_id';
 
     protected $fillable = [
-        
+        'student_id',
         'academic_year_id',
         'grade_level',
         'learner_status',
@@ -32,8 +32,12 @@ class Learner extends Model
         'age',
 
         'mother_tongue',
+
         'is_indigenous',
+        'if_yes_indigenous',
+
         'is_4ps',
+        'household_4ps_id_no',
 
         //'last_school_attended',
         
@@ -114,14 +118,25 @@ class Learner extends Model
 
 
 
-    public function province(){
-        return $this->hasOne(Province::class, 'provCode', 'province');
+    public function current_province(){
+        return $this->hasOne(Province::class, 'provCode', 'current_province');
     }
-    public function city(){
-        return $this->hasOne(City::class, 'citymunCode', 'city');
+    public function current_city(){
+        return $this->hasOne(City::class, 'citymunCode', 'current_city');
     }
-    public function barangay(){
-        return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
+    public function current_barangay(){
+        return $this->hasOne(Barangay::class, 'brgyCode', 'current_barangay');
+    }
+
+    
+    public function permanent_province(){
+        return $this->hasOne(Province::class, 'provCode', 'permanent_province');
+    }
+    public function permanent_city(){
+        return $this->hasOne(City::class, 'citymunCode', 'permanent_city');
+    }
+    public function permanent_barangay(){
+        return $this->hasOne(Barangay::class, 'brgyCode', 'permanent_barangay');
     }
 
 
