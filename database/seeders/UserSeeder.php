@@ -24,53 +24,14 @@ class UserSeeder extends Seeder
                 'sex' => 'FEMALE',
                 //'email' => 'mayesel@dev.com',
                 'role' => 'ADMINISTRATOR',
-                'password' => Hash::make('aa')
+                'password' => Hash::make('ensys!2023')
             ],
 
-            [
-                'username' => 'ana',
-                'lname' => 'TALO',
-                'fname' => 'ANA MARIE',
-                'mname' => 'P',
-                'sex' => 'FEMALE',
-                //'email' => 'ana@dev.com',
-                'role' => 'REGISTRAR',
-                'password' => Hash::make('aa')
-            ],
-
-            [
-                'username' => 'angele',
-                'lname' => 'MUTIA',
-                'fname' => 'ANGELE',
-                'mname' => 'P',
-                'sex' => 'FEMALE',
-                //'email' => 'angele@dev.com',
-                'role' => 'CASHIER',
-                'password' => Hash::make('aa')
-            ],
+   
 
 
 
-            [
-                'username' => 'juan',
-                'lname' => 'DELA CRUZ',
-                'fname' => 'JUAN',
-                'mname' => 'P',
-                'sex' => 'FEMALE',
-                //'email' => 'angele@dev.com',
-                'role' => 'TEACHER',
-                'password' => Hash::make('aa')
-            ],
-            [
-                'username' => 'maria',
-                'lname' => 'CLARA',
-                'fname' => 'MARIA',
-                'mname' => 'P',
-                'sex' => 'FEMALE',
-                //'email' => 'angele@dev.com',
-                'role' => 'TEACHER',
-                'password' => Hash::make('aa')
-            ],
+     
         ];
 
         \App\Models\User::insertOrIgnore($data);
