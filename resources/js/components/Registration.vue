@@ -460,8 +460,7 @@
                                         :type="this.errors.guardian_lname ? 'is-danger':''"
                                         :message="this.errors.guardian_lname ? this.errors.guardian_lname[0] : ''" >
                                         <b-input icon="account" placeholder="Guardian Last Name" 
-                                            v-model="fields.guardian_lname" 
-                                            required type="text"></b-input>
+                                            v-model="fields.guardian_lname" type="text"></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
@@ -469,8 +468,7 @@
                                         :type="this.errors.guardian_fname ? 'is-danger':''"
                                         :message="this.errors.guardian_fname ? this.errors.guardian_fname[0] : ''">
                                         <b-input icon="account" 
-                                            v-model="fields.guardian_fname" 
-                                            required
+                                            v-model="fields.guardian_fname"
                                             placeholder="Guardian First Name" type="text"></b-input>
                                     </b-field>
                                 </div>
@@ -499,7 +497,6 @@
                                         :message="this.errors.guardian_contact_no ? this.errors.guardian_contact_no[0] : ''">
                                         <b-input type="text" v-model="fields.guardian_contact_no"
                                             icon="cellphone"
-                                            required
                                             placeholder="Guardian Contact No."></b-input>
                                     </b-field>
                                 </div>

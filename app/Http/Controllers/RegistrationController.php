@@ -58,9 +58,9 @@ class RegistrationController extends Controller
             'permanent_barangay' => ['required', 'string'],
             //'permanent_zipcode' => ['max:15', 'string'],
 
-            'guardian_lname' => ['required', 'string'],
-            'guardian_fname' => ['required', 'string'],
-            'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
+            //'guardian_lname' => ['required', 'string'],
+           // 'guardian_fname' => ['required', 'string'],
+            //'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
 
             'last_grade_level' => ['required_if:balik_aral,YES'],
             'last_year_completed' => ['required_if:balik_aral,YES'],
