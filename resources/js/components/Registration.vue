@@ -832,75 +832,42 @@ export default {
                 });
             }
 
-
             //alternative
             const formatted_bdate = this.fields.birthdate.getFullYear() + '-' 
                 + (this.fields.birthdate.getMonth() + 1).toString().padStart(2, "0") + '-' 
                 + (this.fields.birthdate.getDate()).toString().padStart(2,'0')
 
-
             this.fields.formatted_bdate = formatted_bdate;
 
-            if(this.id > 0){
-                /* update */
-                this.btnClass['is-loading'] = true
-                axios.put('/manage-learners/' + this.id, this.fields).then(res=>{
-                    this.btnClass['is-loading'] = false
+            /* insert */
+            this.btnClass['is-loading'] = true
 
-                    if(res.data.status === 'updated'){
-                        this.$buefy.dialog.alert({
-                            title: "UPDATED!",
-                            message: 'Data successfully updated.',
-                            type: 'is-success',
-                            onConfirm: ()=>  window.location = '/manage-learners'
-                        });
-                    }
-                }).catch(err=>{
-                    this.btnClass['is-loading'] = false
+            axios.post('/registration', this.fields).then(res=>{
+                this.btnClass['is-loading'] = false
 
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                        this.$buefy.dialog.alert({
-                            title: 'Error!',
-                            hasIcon: true,
-                            message: 'Some fields are required. Please check fields marked red.',
-                            type: 'is-danger',
-                        })
-                    }else{
-                        alert('An error occured.');
-                    }
-                });
-            }else{
-                /* insert */
-                this.btnClass['is-loading'] = true
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        title: "SAVED!",
+                        message: 'Data successfully saved.',
+                        type: 'is-success',
+                        onConfirm: ()=>  window.location = '/registration'
+                    });
+                }
+            }).catch(err=>{
+                this.btnClass['is-loading'] = false
 
-                axios.post('/manage-learners', this.fields).then(res=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(res.data.status === 'saved'){
-                        this.$buefy.dialog.alert({
-                            title: "SAVED!",
-                            message: 'Data successfully saved.',
-                            type: 'is-success',
-                            onConfirm: ()=>  window.location = '/manage-learners'
-                        });
-                    }
-                }).catch(err=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                        this.$buefy.dialog.alert({
-                            title: 'Error!',
-                            hasIcon: true,
-                            message: 'Some fields are required. Please check fields marked red.',
-                            type: 'is-danger',
-                        })
-                    }else{
-                        alert('An error occured.');
-                    }
-                });
-            }
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                    this.$buefy.dialog.alert({
+                        title: 'Error!',
+                        hasIcon: true,
+                        message: 'Some fields are required. Please check fields marked red.',
+                        type: 'is-danger',
+                    })
+                }else{
+                    alert('An error occured.');
+                }
+            });
 
         },
 

@@ -11,13 +11,10 @@
 		<p>Tangub City, Misamis Occidental</p>
 
 		<b-button tag="a"
-			href="/register"
+			href="/registration"
 			type="is-success mt-4"
 			label="REGISTERE HERE"></b-button>
 	</div>
-
-
-
 
   </div>
     

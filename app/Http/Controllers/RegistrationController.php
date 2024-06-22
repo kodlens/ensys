@@ -30,8 +30,8 @@ class RegistrationController extends Controller
 
             'grade_level' => ['required'],
             'balik_aral' => ['required', 'string'],
-            'psa' => ['required', 'string', 'max:15'],
-            'lrn' => ['string', 'max:15'],
+            'psa' => ['max:15'],
+            'lrn' => ['max:15'],
 
             'lname' => ['required', 'string', 'max:50'],
             'fname' => ['required', 'string', 'max:50'],
@@ -86,15 +86,15 @@ class RegistrationController extends Controller
         ]);
         
         /* adding other validation checking for fullname duplicate */
-        $existLearner = Learner::where('lname', $req->lname)
-            ->where('fname', $req->fname)
-            ->where('mname', $req->mname)
+        $existLearner = Learner::where('lname', strtoupper($req->lname))
+            ->where('fname', strtoupper($req->fname))
+            ->where('mname', strtoupper($req->mname))
             ->exists();
 
         if($existLearner){
             return response()->json([
                 'errors' => [
-                    'exist' => ['Learner already exist/registered on the system.']
+                    'lname' => ['Learner already exist/registered on the system.']
                 ]
             ], 422);
         }
@@ -103,8 +103,9 @@ class RegistrationController extends Controller
 
         try {
 
-            $data = Learner::where('learner_id', $id)
-            ->update([
+            $ay = AcademicYear::where('is_active', 1)->first();
+            /*inserting data to database*/
+            $data = Learner::create([
 
                 'academic_year_id' => $ay->academic_year_id,
                 'grade_level' => $req->grade_level['grade_level'],
@@ -121,7 +122,7 @@ class RegistrationController extends Controller
                 'birthplace' => strtoupper($req->birthplace),
                 
                 'mother_tongue' => strtoupper($req->mother_tongue),
-        
+
                 'is_indigenous' => $req->is_indigenous,
                 'if_yes_indigenous' => strtoupper($req->if_yes_indigenous),
 
@@ -159,7 +160,7 @@ class RegistrationController extends Controller
                 'guardian_mname' => strtoupper($req->guardian_mname),
                 'guardian_extension' => strtoupper($req->guardian_mname),
                 'guardian_contact_no' => $req->guardian_contact_no,
-
+        
                 'last_grade_level' =>  $req->last_grade_level,
                 'last_year_completed' => $req->last_year_completed,
                 'last_school_attended' => strtoupper($req->last_school_attended),
@@ -171,16 +172,20 @@ class RegistrationController extends Controller
                 'track_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->track_id : null,
                 'strand_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->strand_id : null,
 
-                'administer_by' => 'SELF',
-
+                'administer_by' => 'SELF'
             ]);
 
-        return response()->json([
-            'status' => 'updated'
-        ],200);
+            //STUDENT ID GENERATION
+            $updateData = Learner::find($data->learner_id);
+            $id = date('Y') . '-' . str_pad($data->learner_id, 6, '0', STR_PAD_LEFT);
+            $updateData->student_id = $id;
+            $updateData->save();
+
 
             // If all operations are successful, commit the transaction
             DB::commit();
+
+            return 'save';
 
             return response()->json([
                 'status' => 'saved'
