@@ -9,6 +9,11 @@
 		<h1 style="font-size:50px">Tangub City National High School</h1>
 		<h3 style="font-size:40px">SCHOOL ID: 304171</h3>
 		<p>Tangub City, Misamis Occidental</p>
+
+		<b-button tag="a"
+			href="/register"
+			type="is-success mt-4"
+			label="REGISTERE HERE"></b-button>
 	</div>
 
 

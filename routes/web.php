@@ -165,7 +165,7 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::resource('/billing-subjects', App\Http\Controllers\Administrator\BillingController::class);
     Route::get('/get-billing-subjects', [App\Http\Controllers\Administrator\BillingController::class, 'getData']);
     Route::get('/get-browse-billings', [App\Http\Controllers\Administrator\BillingController::class, 'getBrowseBillings']);
-    
+                                                        
     
     Route::resource('/billing-payment', App\Http\Controllers\Administrator\BillingPaymentController::class);
     Route::get('/get-billing-payment', [App\Http\Controllers\Administrator\BillingPaymentController::class, 'getData']);
