@@ -185,10 +185,11 @@ class RegistrationController extends Controller
             // If all operations are successful, commit the transaction
             DB::commit();
 
-            return 'save';
+            //return 'save';
 
             return response()->json([
-                'status' => 'saved'
+                'status' => 'saved',
+                'reference' => $id
             ],200);
 
         }catch(Exception $e) {
@@ -199,6 +200,11 @@ class RegistrationController extends Controller
         }
 
     }
+
+    public function registrationReference($ref){
+        return view('registration-reference')
+            ->with('ref', $ref);
+;    }
 
 
 

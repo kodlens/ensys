@@ -457,16 +457,21 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Guardian Last Name"
-                                             :type="this.errors.guardian_lname ? 'is-danger':''"
-                                             :message="this.errors.guardian_lname ? this.errors.guardian_lname[0] : ''" >
-                                        <b-input icon="account" placeholder="Guardian Last Name" v-model="fields.guardian_lname" type="text"></b-input>
+                                        :type="this.errors.guardian_lname ? 'is-danger':''"
+                                        :message="this.errors.guardian_lname ? this.errors.guardian_lname[0] : ''" >
+                                        <b-input icon="account" placeholder="Guardian Last Name" 
+                                            v-model="fields.guardian_lname" 
+                                            required type="text"></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="Guardian First Name"
-                                             :type="this.errors.guardian_fname ? 'is-danger':''"
-                                             :message="this.errors.guardian_fname ? this.errors.guardian_fname[0] : ''">
-                                        <b-input icon="account" v-model="fields.guardian_fname" placeholder="Guardian First Name" type="text"></b-input>
+                                        :type="this.errors.guardian_fname ? 'is-danger':''"
+                                        :message="this.errors.guardian_fname ? this.errors.guardian_fname[0] : ''">
+                                        <b-input icon="account" 
+                                            v-model="fields.guardian_fname" 
+                                            required
+                                            placeholder="Guardian First Name" type="text"></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
@@ -850,7 +855,7 @@ export default {
                         title: "SAVED!",
                         message: 'Data successfully saved.',
                         type: 'is-success',
-                        onConfirm: ()=>  window.location = '/registration'
+                        onConfirm: ()=>  window.location = '/registration-reference/' + res.data.reference
                     });
                 }
             }).catch(err=>{

@@ -45,6 +45,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/registration', [App\Http\Controllers\RegistrationController::class, 'index']);
 Route::post('/registration', [App\Http\Controllers\RegistrationController::class, 'store']);
+Route::get('/registration-reference/{ref}', [App\Http\Controllers\RegistrationController::class, 'registrationReference']);
 
 Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'getUser']);
 
