@@ -19,9 +19,9 @@
                             </p>
                         </b-field>
 
-                        <div class="buttons is-right mt-3">
+                        <!-- <div class="buttons is-right mt-3">
                             <b-button @click="openModal" icon-left="plus" class="is-primary is-small">NEW</b-button>
-                        </div>
+                        </div> -->
 
                         <b-table
                             :data="data"
@@ -106,6 +106,17 @@
 
                     <section class="modal-card-body">
                         <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Reference Id" label-position="on-border"
+                                            :type="this.errors.reference_id ? 'is-danger':''"
+                                            :message="this.errors.reference_id ? this.errors.reference_id[0] : ''">
+                                        <b-input v-model="fields.reference_id"
+                                                 placeholder="Reference Id" required>
+                                        </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Last Name" label-position="on-border"
@@ -259,7 +270,7 @@ export default{
         submit: function(){
             if(this.global_id > 0){
                 //update
-                axios.put('/faculty/'+this.global_id, this.fields).then(res=>{
+                axios.put('/teachers/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -280,7 +291,7 @@ export default{
                 })
             }else{
                 //INSERT HERE
-                axios.post('/faculty', this.fields).then(res=>{
+                axios.post('/teachers', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -317,7 +328,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/faculty/' + delete_id).then(res => {
+            axios.delete('/teachers/' + delete_id).then(res => {
                 this.loadAsyncData();
                 this.clearFields()
             }).catch(err => {
@@ -344,7 +355,7 @@ export default{
             this.isModalCreate = true;
 
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/faculty/'+data_id).then(res=>{
+            axios.get('/teachers/'+data_id).then(res=>{
                 this.fields = res.data;
             });
         },

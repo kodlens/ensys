@@ -14,7 +14,7 @@ class Teacher extends Model
     protected $primaryKey = 'teacher_id';
 
 
-    protected $fillable = ['lname', 'fname', 'mname'];
+    protected $fillable = ['reference_id', 'lname', 'fname', 'mname'];
 
 
 

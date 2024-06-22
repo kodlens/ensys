@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Teacher;
 
 
 class TeacherController extends Controller
@@ -37,12 +38,14 @@ class TeacherController extends Controller
 
     public function store(Request $req){
         $req->validate([
+            'reference_id' => ['max:20'],
             'lname' => ['required', 'string'],
             'fname' => ['required', 'string'],
             'sex' => ['required', 'string'],
         ]);
 
         Teacher::create([
+            'reference_id' => strtoupper($req->reference_id),
             'lname' => strtoupper($req->lname),
             'fname' => strtoupper($req->fname),
             'mname' => strtoupper($req->mname),
