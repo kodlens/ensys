@@ -24,6 +24,7 @@ class UserController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $users = User::where('lname', 'like', $req->lname . '%')
+            ->where('username', '!=', 'admin')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
