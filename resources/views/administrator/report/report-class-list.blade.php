@@ -1,6 +1,6 @@
 @extends('layouts.print-layout')
 
 @section('content')
-    <report-class-list></report-class-list>
+    <old-report-class-list></old-report-class-list>
 @endsection
 
