@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'username' => 'admin',
-                'lname' => 'LABAJO',
-                'fname' => 'MAYISEL',
+                'lname' => 'ABAPO',
+                'fname' => 'JADE MARK',
                 'mname' => 'P',
                 'sex' => 'FEMALE',
                 //'email' => 'mayesel@dev.com',
