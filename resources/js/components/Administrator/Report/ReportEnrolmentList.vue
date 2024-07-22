@@ -4,7 +4,7 @@
 
             <div class="header">
                 <div>
-                    <img src="/img/tudela_logo.png" class="header-img" />
+                    <img src="/img/tcnhs_logo.png" class="header-img" />
                 </div>
                 <div>
                     <div class="has-text-weight-bold has-text-centered is-size-5">
@@ -14,12 +14,10 @@
                         {{ academicYear.academic_year_code }} - {{ academicYear.academic_year_desc }}
                     </div>
                 </div>
-               
-                
             </div>
 
 
-            <table class="enrolment-table" border="1">
+            <table class="enrolment-table m-auto" border="1">
                 <tr>
                     <th rowspan="2">LRN</th>
                     <th rowspan="2">NAME</th>

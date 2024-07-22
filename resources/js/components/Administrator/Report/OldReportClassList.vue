@@ -53,6 +53,7 @@
                 
                 <div v-if="item.enrollees.length > 0" class="has-text-centered">
                     <hr>
+                    <div>TOTAL NO. OF STUDENT(S): <b>{{ item.enrollees.length }}</b></div>
                     **END SECTION**
                 </div>
             </div><!--loop-->
