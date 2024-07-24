@@ -234,13 +234,15 @@ button{
     border: 1px solid red;
 }
 
+
+
 //@import '~animate.css/animate';
 //npm install animate.css --save
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary: #307402;
+$primary: #1f3596;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
@@ -264,6 +266,18 @@ $input-radius: 0px;
 //$modal-background-background-color: #00c8d6;
 
 $modal-card-head-background-color: #ffffff;
+
+// color of the card header
+.info-header{
+    background-color:$primary;
+    padding: 10px;
+    color: white;
+}
+.subject-card{
+    margin: 10px 0px 5px 0px;
+    border: 1px solid gray;
+    padding: 15px;
+}
 
 
 .table-text{

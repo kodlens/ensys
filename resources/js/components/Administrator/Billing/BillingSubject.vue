@@ -393,14 +393,4 @@ export default{
 
 <style scoped>
 
-.info-header{
-    background-color: green;
-    padding: 10px;
-    color: white;
-}
-.subject-card{
-    margin: 10px 0px 5px 0px;
-    border: 1px solid gray;
-    padding: 15px;
-}
 </style>

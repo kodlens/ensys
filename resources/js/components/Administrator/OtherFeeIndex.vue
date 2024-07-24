@@ -146,7 +146,7 @@
                                         <b-checkbox v-model="fields.is_active"
                                             :true-value="1"
                                             :false-value="0">
-                                            {{ checkboxCustom }}
+                                            Active
                                         </b-checkbox>
                                     </b-field>
                                 </div>
@@ -192,6 +192,8 @@ export default{
                 academic_year: '', 
             },
             errors: {},
+
+            checkboxCustom: null
 
         }
 
