@@ -17,9 +17,9 @@ class CreateSubjectsTable extends Migration
             $table->id('subject_id');
             $table->string('subject_code')->nullable();
             $table->string('subject_description')->nullable();
-            $table->string('units')->nullable();
-            $table->string('class')->nullable();
-            $table->double('fee')->default(0);
+            $table->string('units')->nullable()->nullable();
+            $table->string('class')->nullable()->nullable();
+            $table->double('fee')->default(0)->nullable();
             $table->timestamps();
         });
     }

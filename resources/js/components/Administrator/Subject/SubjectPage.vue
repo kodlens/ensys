@@ -152,7 +152,7 @@
                                         :message="this.errors.fee ? this.errors.fee[0] : ''">
                                         <b-numberinput v-model="fields.fee"
                                             type="number" :controls="false"
-                                            placeholder="Fee" required>
+                                            placeholder="Fees">
                                         </b-numberinput>
                                     </b-field>
                                 </div>
@@ -202,6 +202,7 @@ export default{
                 subject_description: null,
                 units: null,
                 class: null,
+                fee: 0
 
             },
             errors: {},
@@ -349,6 +350,7 @@ export default{
             this.fields.subject_description = null
             this.fields.units = null
             this.fields.class = null
+            this.fields.fee = 0
 
         },
 
