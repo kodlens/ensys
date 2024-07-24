@@ -796,7 +796,6 @@ export default {
         loadGradeLevels(){
             axios.get('/load-grade-levels').then(res=>{
                 this.gradeLevels = res.data;
-                console.log(this.gradeLevels);
             })
         },
 
@@ -895,10 +894,8 @@ export default {
             let data = JSON.parse(this.propData)
             this.id = data.learner_id
 
-            console.log(data)
-
             this.fields.grade_level = { grade_level: data.grade_level.grade_level, curriculum_code: data.grade_level.curriculum_code }
-            console.log(data.grade_level);
+
             this.fields.balik_aral = data.balik_aral
             this.fields.psa = data.psa
             
