@@ -265,7 +265,7 @@ export default{
 
         openModal(){
             this.isModalCreate=true;
-            this.fields = {};
+            this.clearFields()
             this.errors = {};
         },
 
