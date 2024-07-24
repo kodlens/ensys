@@ -29,9 +29,13 @@
 
 
 .navbar {
-    border-bottom: 0.5px solid #0A4D68;
+    // border-bottom: 0.5px solid #0A4D68;
     // box-shadow: 0 1px 10px rgb(224, 224, 224);
+    background-color: transparent;
+    position: fixed;
+    top: 0;
 }
+
 
 button{
     border-radius: 0 !important;

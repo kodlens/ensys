@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar transparent>
         <template #brand>
             <b-navbar-item>
                 <img src="/img/logo.png" />
@@ -22,9 +22,9 @@
             </b-navbar-item>
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">
-                    <a class="button is-primary is-outlined" href="/login">
-                        <strong>Login</strong>
-                    </a>
+                    <b-button type="a" rounded class="button is-primary is-outlined" href="/login">
+                        <strong>LOGIN</strong>
+                    </b-button>
                 </div>
                 <div v-else class="buttons">
                     <b-button label="LOGOUT" icon-left="logout" @click="logout">

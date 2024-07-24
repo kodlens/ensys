@@ -27,9 +27,14 @@
             height: 100%;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
+            position: relative;
         }
 
         .bg-image {
+            position: relative;
+            top: 0;
+            left: 0;
+            margin-top: -50px;
             /* The image used */
             background-image: url('/img/bg.jpg');
             background-repeat: no-repeat;
@@ -103,9 +108,9 @@
                     
                     <b-navbar-item tag="div">
                         <div class="buttons">
-                            <a class="button is-primary is-outlined" href="/login">
+                            <b-button rounded type="a"  class="button is-primary is-outlined" href="/login">
                                 <strong>Login</strong>
-                            </a>
+                            </b-button>
                         </div>
                     </b-navbar-item>
                 @endauth
