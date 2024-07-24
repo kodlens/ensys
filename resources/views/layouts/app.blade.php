@@ -108,7 +108,7 @@
                     
                     <b-navbar-item tag="div">
                         <div class="buttons">
-                            <b-button rounded type="a"  class="button is-primary is-outlined" href="/login">
+                            <b-button rounded tag="a"  class="button is-primary is-outlined" href="/login">
                                 <strong>Login</strong>
                             </b-button>
                         </div>
