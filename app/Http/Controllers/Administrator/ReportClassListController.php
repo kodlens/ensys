@@ -19,7 +19,7 @@ class ReportClassListController extends Controller
 
     public function getReportClassList(Request $req){
 
-        return Section::with(['enrollees.learner', 
+        return Section::with(['enrollees', 
             'enrollees.subjects.subject',
             'enrollees.academic_year',
             'enrollees.track',

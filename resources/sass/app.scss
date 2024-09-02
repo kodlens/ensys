@@ -329,29 +329,6 @@ h2 span {
     margin: 0 0 0 10px;
 }
 
-
-@media print {
-
-    .nprint{
-        display: none;
-    }
-    header, footer, aside, nav, form, iframe, .menu, .hero, .adslot, footer {
-        display: none;
-    }
-
-    .box{
-        display: none;
-    }
-
-    .footer{
-        display: none;
-    }
-
-    .buttons{
-        display: none;
-    }
-
-}
 //$navbar-burger-color: white;
 //$navbar-item-color: #ffffff;
 //$navbar-item-hover-color: #a7f1a7;

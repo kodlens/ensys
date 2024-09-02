@@ -31,7 +31,9 @@ class Section extends Model
     }
 
     public function enrollees(){
-        return $this->hasMany(Enroll::class, 'section_id', 'section_id');
+        return $this->hasMany(Enroll::class, 'section_id', 'section_id')
+            ->leftJoin('learners', 'enrolls.learner_id', 'learners.learner_id')
+            ->orderBy('learners.lname', 'asc');
     }
 
 

@@ -27049,27 +27049,6 @@ h2 span {
   margin: 0 0 0 10px;
 }
 
-@media print {
-  .nprint {
-    display: none;
-  }
-
-  header, footer, aside, nav, form, iframe, .menu, .hero, .adslot, footer {
-    display: none;
-  }
-
-  .box {
-    display: none;
-  }
-
-  .footer {
-    display: none;
-  }
-
-  .buttons {
-    display: none;
-  }
-}
 /*! bulma.io v0.9.3 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
 .pagination-previous,
