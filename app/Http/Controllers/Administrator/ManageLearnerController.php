@@ -96,9 +96,9 @@ class ManageLearnerController extends Controller
             'permanent_barangay' => ['required', 'string'],
             //'permanent_zipcode' => ['max:15', 'string'],
 
-            'guardian_lname' => ['required', 'string'],
-            'guardian_fname' => ['required', 'string'],
-            'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
+            // 'guardian_lname' => ['required', 'string'],
+            // 'guardian_fname' => ['required', 'string'],
+            // 'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
 
             'last_grade_level' => ['required_if:balik_aral,YES'],
             'last_year_completed' => ['required_if:balik_aral,YES'],
@@ -186,6 +186,9 @@ class ManageLearnerController extends Controller
             'guardian_mname' => strtoupper($req->guardian_mname),
             'guardian_extension' => strtoupper($req->guardian_mname),
             'guardian_contact_no' => $req->guardian_contact_no,
+            'guardian_relationship' => strtoupper($req->guardian_relationship),
+    
+            
       
             'last_grade_level' =>  $req->last_grade_level,
             'last_year_completed' => $req->last_year_completed,
@@ -248,9 +251,9 @@ class ManageLearnerController extends Controller
             'permanent_barangay' => ['required', 'string'],
             //'permanent_zipcode' => ['max:15', 'string'],
 
-            'guardian_lname' => ['required', 'string'],
-            'guardian_fname' => ['required', 'string'],
-            'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
+            // 'guardian_lname' => ['required', 'string'],
+            // 'guardian_fname' => ['required', 'string'],
+            // 'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
 
             'last_grade_level' => ['required_if:balik_aral,YES'],
             'last_year_completed' => ['required_if:balik_aral,YES'],
@@ -344,6 +347,7 @@ class ManageLearnerController extends Controller
                 'guardian_mname' => strtoupper($req->guardian_mname),
                 'guardian_extension' => strtoupper($req->guardian_mname),
                 'guardian_contact_no' => $req->guardian_contact_no,
+                'guardian_relationship' => strtoupper($req->guardian_relationship),
 
                 'last_grade_level' =>  $req->balik_aral == 'YES' ? $req->last_grade_level : null,
                 'last_year_completed' => $req->balik_aral == 'YES' ? $req->last_year_completed : null,

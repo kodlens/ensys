@@ -78,6 +78,7 @@ class Learner extends Model
         'guardian_mname',
         'guardian_extension',
         'guardian_contact_no',
+        'guardian_relationship',
 
 
         'last_grade_level',
