@@ -20,20 +20,39 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
+
+        .print-area{
+            width: 210mm;
+            margin: 30px auto;
+            padding: 30px 35px;
+        }
+
         @page {
-            /* size: A4; */
+            size: 11.7in 8.3in;
+            border: 1px solid red;
             margin: 0;
         }
+        
         @media print {
+            
+            .print-area{
+                margin: 0 auto;
+                padding: 0;
+                font-size: .9rem;
+            }
+
+
             html, body {
-                width: 210mm;
-                height: 297mm;
+                margin: 0;
+                padding: 0;
             }
 
             
             .page-break{
                 page-break-after: always;
+                margin-top: 15px;
             }
+
             .nprint{
                 display: none;
             }
@@ -43,29 +62,19 @@
                 margin: 0;
             }
 
-            .section {
+            .section .columns .column {
                 margin: 0;
             }
+
             .buttons{
                 display: none;
-            }
-
-            .print-area{
-                width: 210mm;
-                margin: 0 auto;
             }
 
             
         /* ... the rest of the rules ... */
         }
 
-        .print-area{
-            width: 210mm;
-            height: 297mm;
-            margin: 30px auto 0;
-            padding: 30px 35px;
      
-        }
     </style>
 
 </head>
