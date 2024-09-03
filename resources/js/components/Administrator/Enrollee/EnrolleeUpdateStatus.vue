@@ -79,8 +79,12 @@ export default {
             type: Number,
             default: 0
         },
+        propData: {
+            type: Object,
+            default: ()=>{}
+        }
     },
-    
+
     data(){
         return {
             fields: {
@@ -109,6 +113,12 @@ export default {
             }).catch(err=>{
             
             })
+        }
+    },
+
+    mounted(){
+        if(this.propData){
+            this.fields = this.propData
         }
     }
 }

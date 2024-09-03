@@ -25,7 +25,7 @@ class Enroll extends Model
         'admission_date',
         'date_enrolled',
         'is_enrolled',
-        'status', 'transfered_to', 'date_transfered', 'reason'
+        'status', 'school_transfered', 'date_transfered', 'reason',
         'section_id',
     ];
 

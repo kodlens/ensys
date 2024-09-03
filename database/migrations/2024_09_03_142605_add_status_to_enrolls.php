@@ -18,7 +18,7 @@ class AddStatusToEnrolls extends Migration
             $table->string('status', 20)->nullable()
                 ->after('is_enrolled');
                 
-            $table->string('transfered_to')->nullable()
+            $table->string('school_transfered')->nullable()
                 ->after('status');
 
             $table->date('date_transfered')->nullable()

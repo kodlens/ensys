@@ -95,8 +95,6 @@ Route::middleware(['auth', 'teacher'])->group(function(){
 
 
 
-
-
 // -----------------------ADMINISTRATOR-----------------------------------
 
 Route::middleware(['auth', 'admin'])->group(function(){
@@ -112,7 +110,6 @@ Route::middleware(['auth', 'admin'])->group(function(){
 
     Route::get('/manage-curriculum-page/{curId}', [App\Http\Controllers\Administrator\CurriculumPageController::class, 'index']);
     Route::get('/get-grade-levels-shs', [App\Http\Controllers\Administrator\CurriculumPageController::class, 'getGradeLevelSHS']);
-
 
 
 
@@ -153,11 +150,8 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::post('/enrollee-update-status/{id}', [App\Http\Controllers\Administrator\EnrolleeController::class, 'enrolleeUpdateStatusUpdate']);
    
 
-    
-
     Route::resource('/change-adminssion', App\Http\Controllers\Administrator\ChangeAdmissionController::class);
     
-
     Route::resource('/assign-teacher', App\Http\Controllers\Administrator\AssignTeacherController::class);
     Route::get('/get-enroll-section-subjects', [App\Http\Controllers\Administrator\AssignTeacherController::class, 'getData']);
     Route::get('/load-teacher-lists', [App\Http\Controllers\Administrator\AssignTeacherController::class, 'loadTeacherList']);

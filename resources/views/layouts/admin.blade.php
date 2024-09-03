@@ -123,10 +123,10 @@
                     <b-navbar-item href="/enrollee">
                         Enrollee
                     </b-navbar-item>
-
+<!-- 
                     <b-navbar-item href="/change-adminssion">
                         Change Admission
-                    </b-navbar-item>
+                    </b-navbar-item> -->
 
                     <b-navbar-item href="/assign-teacher">
                         Assign Teacher

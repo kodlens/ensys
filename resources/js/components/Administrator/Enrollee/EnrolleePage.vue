@@ -110,10 +110,10 @@
                             </b-table-column>
 
                             <b-table-column field="grade_level" label="Enrollment Status" v-slot="props">
-                                <span class="enroled" v-if="props.row.is_enrolled == 1">ENROLED</span>
-                                <span class="withdraw" v-if="props.row.is_enrolled == 2">WITHDRAWED</span>
-                                <span class="admitted" v-if="props.row.is_enrolled == 0">ADMITTED</span>
-
+                                <span class="green" v-if="props.row.status === 'ENROL'">ENROLED</span>
+                                <span class="red" v-if="props.row.status === 'WITHDRAW'">WITHDRAWED</span>
+                                <span class="red" v-if="props.row.status === 'DROP'">DROPPED</span>
+                                <span class="blue" v-if="props.row.status === 'TRANSFER'">TRANSFERED</span>
                             </b-table-column>
 
                             <b-table-column field="track_strand" label="Track/Strand" v-slot="props">
@@ -467,7 +467,7 @@ export default{
 
 <style scoped>
 
-    .enroled{
+    .green{
         font-weight: bold;
         font-size: 12px;
         padding: 5px;
@@ -476,7 +476,7 @@ export default{
         color: white;
     }
 
-    .admitted{
+    .blue{
         font-weight: bold;
         font-size: 12px;
         padding: 5px;
@@ -485,7 +485,7 @@ export default{
         color: #ffffff;
     }
 
-    .withdraw {
+    .red {
         font-weight: bold;
         font-size: 12px;
         padding: 5px;

@@ -99,7 +99,9 @@ class EnrolleeController extends Controller
 
 
     public function enrolleeUpdateStatusIndex($id){
+        $enroll = Enroll::find($id);
         return view('administrator.enrollee.enrollee-update-status')
+            ->with('enroll', $enroll)
             ->with('id', $id);
     }
 

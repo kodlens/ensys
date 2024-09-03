@@ -70,6 +70,7 @@ class BillingController extends Controller
 
         $data = Enroll::find($req->enroll_id);
         $data->is_enrolled = 1;
+        $data->status = 'ENROL';
         $data->date_enrolled = date('Y-m-d');
         $data->save();
 
