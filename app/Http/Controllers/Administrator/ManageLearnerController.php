@@ -126,7 +126,7 @@ class ManageLearnerController extends Controller
 
         ]);
 
-      
+   
 
         $ay = AcademicYear::where('is_active', 1)->first();
         $user = Auth::user();
@@ -218,7 +218,7 @@ class ManageLearnerController extends Controller
 
     
     public function update(Request $req, $id){
-
+        
         $req->validate([
 
             'grade_level' => ['required'],

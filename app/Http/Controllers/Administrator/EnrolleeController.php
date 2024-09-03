@@ -98,4 +98,26 @@ class EnrolleeController extends Controller
     }
 
 
+    public function enrolleeUpdateStatusIndex($id){
+        return view('administrator.enrollee.enrollee-update-status')
+            ->with('id', $id);
+    }
+
+
+    public function enrolleeUpdateStatusUpdate(Request $req, $id){
+        $data = Enroll::find($id);
+        $dateStatus = date('Y-m-d', strtotime($req->date_transfered));
+
+        $data->status = $req->status;
+        $data->date_transfered = $dateStatus;
+        $data->reason = $req->reason;
+        $data->school_transfered = $req->school_transfered;
+        $data->save();
+        
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
+    }
+
+
 }

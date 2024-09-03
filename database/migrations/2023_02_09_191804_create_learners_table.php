@@ -84,7 +84,7 @@ class CreateLearnersTable extends Migration
             $table->string('guardian_mname', 50)->nullable();
             $table->string('guardian_extension', 50)->nullable();
             $table->string('guardian_contact_no', 50)->nullable();
-            // $table->string('guardian_relationship')->nullable();
+            $table->string('guardian_relationship')->nullable();
 
             $table->string('last_grade_level', 10)->nullable();
             $table->string('last_year_completed', 20)->nullable();

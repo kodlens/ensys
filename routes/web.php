@@ -147,12 +147,21 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/get-browse-enrollees', [App\Http\Controllers\Administrator\EnrolleeController::class, 'getBrowseEnrollees']);
     Route::get('/print-coe/{learnerId}/{ayid}', [App\Http\Controllers\Administrator\EnrolleeController::class, 'coeIndex']);
     Route::get('/get-report-learner/{learnerId}/{ayid}', [App\Http\Controllers\Administrator\EnrolleeController::class, 'getReportLearner']);
+    
+
+    Route::get('/enrollee-update-status/{id}', [App\Http\Controllers\Administrator\EnrolleeController::class, 'enrolleeUpdateStatusIndex']);
+    Route::post('/enrollee-update-status/{id}', [App\Http\Controllers\Administrator\EnrolleeController::class, 'enrolleeUpdateStatusUpdate']);
+   
+
+    
+
+    Route::resource('/change-adminssion', App\Http\Controllers\Administrator\ChangeAdmissionController::class);
+    
 
     Route::resource('/assign-teacher', App\Http\Controllers\Administrator\AssignTeacherController::class);
     Route::get('/get-enroll-section-subjects', [App\Http\Controllers\Administrator\AssignTeacherController::class, 'getData']);
     Route::get('/load-teacher-lists', [App\Http\Controllers\Administrator\AssignTeacherController::class, 'loadTeacherList']);
     Route::post('/save-teacher', [App\Http\Controllers\Administrator\AssignTeacherController::class, 'saveTeacher']);
-    
     
     
     Route::resource('/enrollment', App\Http\Controllers\Administrator\EnrollmentController::class);

@@ -19,7 +19,7 @@
                     </b-field>
 
                     <div class="buttons is-centered mt-4">
-                        <button class="w-button is-primary is-outlined">LOGIN</button>
+                        <button class="w-button is-primary is-outlined" :loading="loading">LOGIN</button>
                     </div>
                 </div>
             </div>
@@ -38,12 +38,15 @@ export default {
                 password: null,
             },
 
+            loading: false,
+
             errors: {},
         }
     },
 
     methods: {
         submit: function(){
+            this.loading = true
             axios.post('/login', this.fields).then(res=>{
                 //console.log(res.data)
 
@@ -54,6 +57,8 @@ export default {
 
                //window.location = '/dashboard';
             }).catch(err=>{
+                this.loading = false
+
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
                 }

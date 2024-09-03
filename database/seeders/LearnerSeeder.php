@@ -18,18 +18,19 @@ class LearnerSeeder extends Seeder
         $data = [
             //JHS
             [
+                'student_id' => '20240001',
                 'academic_year_id' => 1,
                 'grade_level' => 'GRADE 11',
                 'balik_aral' => 'NO',
                 'lrn' => '20221123231',
                 'psa' => '',
-                'lname' => 'LABAJO',
-                'fname' => 'MAYESEL',
+                'lname' => 'AMPARADO',
+                'fname' => 'ESHEN',
                 'mname' => '',
                 'extension' => '',
-                'sex' => 'FEMALE',
+                'sex' => 'MALE',
                 'birthdate' => '2000-01-20',
-                'birthplace' => 'TUDELA, MISAMIS OCCIDENTAL',
+                'birthplace' => 'TANGUB, MISAMIS OCCIDENTAL',
                 'age' => '22',
 
                 'current_province' => '1602',
@@ -44,13 +45,13 @@ class LearnerSeeder extends Seeder
                 'permanent_street' => '',
                 'permanent_zipcode' => null,
 
-                'father_lname' => 'LABAJO',
+                'father_lname' => 'AMPZ',
                 'father_fname' => 'JOHN',
                 'father_mname' => '',
                 'father_extension' => '',
                 'father_contact_no' => '09161231234',
 
-                'mother_maiden_lname' => 'MAIDEN LABAJO',
+                'mother_maiden_lname' => 'MAIDEN AMPZ',
                 'mother_maiden_fname' => 'JANE',
                 'mother_maiden_mname' => '',
                 'mother_maiden_contact_no' => '09161231235',
@@ -67,6 +68,7 @@ class LearnerSeeder extends Seeder
             ],
 
             [
+                'student_id' => '20240001',
                 'academic_year_id' => 1,
                 'grade_level' => 'GRADE 12',
                 'balik_aral' => 'NO',

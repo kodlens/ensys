@@ -111,7 +111,8 @@
 
                             <b-table-column field="grade_level" label="Enrollment Status" v-slot="props">
                                 <span class="enroled" v-if="props.row.is_enrolled == 1">ENROLED</span>
-                                <span class="admitted" v-else>ADMITTED</span>
+                                <span class="withdraw" v-if="props.row.is_enrolled == 2">WITHDRAWED</span>
+                                <span class="admitted" v-if="props.row.is_enrolled == 0">ADMITTED</span>
 
                             </b-table-column>
 
@@ -133,28 +134,17 @@
                                         <b-button class="button is-small mr-1" 
                                             tag="a" icon-right="history" 
                                             @click="getData(props.row.learner_id)"></b-button>
+
+                                          
                                     </b-tooltip>
-                                    <!-- <b-tooltip label="Delete" type="is-danger">
+
+                                    <b-tooltip label="Withdraw Enrolment" type="is-info">
                                         <b-button class="button is-small mr-1" 
-                                            icon-right="delete" 
-                                            @click="confirmDelete(props.row.enroll_id)"></b-button>
-                                    </b-tooltip> -->
+                                            icon-right="sign-real-estate" 
+                                            @click="openCancelEnrolment(props.row.enroll_id)"></b-button>
+                                    </b-tooltip>
 
-                                    <!-- <b-tooltip label="More options">
-                                        <b-dropdown aria-role="list">
-                                            <template #trigger="{ active }">
-                                                <b-button
-                                                    label=""
-                                                    size="is-small"
-                                                    type="is-primary"
-                                                    :icon-right="active ? 'menu-up' : 'menu-down'" />
-                                            </template>
-
-                                            <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
-                                            <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
-                                            <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
-                                        </b-dropdown>
-                                    </b-tooltip> -->
+                                    
                                 </div>
                             </b-table-column>
 
@@ -191,9 +181,6 @@
                                     </div>
                                    
                                 </div>
-                              
-                               
-                    
 
                                 <p class="has-text-weight-bold is-size-6 mb-4">SUBJECTS</p>
                                 <table class="table">
@@ -236,7 +223,51 @@
         </div><!--section div-->
 
 
+        <!--modal reset password-->
+        <b-modal v-model="modalCancelEnrolment" has-modal-card
+            trap-focus
+            :width="640"
+            aria-role="dialog"
+            aria-label="Modal"
+            aria-modal>
 
+            <form @submit.prevent="resetPassword">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">CHANGE ENROLMENT STATUS</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalCancelEnrolment = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Password" label-position="on-border"
+                                        expanded
+                                        :type="this.errors.password ? 'is-danger':''"
+                                        :message="this.errors.password ? this.errors.password[0] : ''">
+                                        <b-select expanded 
+                                            v-model="fields.is_enrolled"
+                                            placeholder="Enrolment Status" required>
+                                            <option value="WITHDRAWED">WITHDRAWED</option>
+                                            <option value="DROP">DROP OUT</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button
+                            class="button is-primary">SAVE</button>
+                    </footer>
+                </div>
+            </form>
+        </b-modal> 
+        <!--close modal-->
 
 
     </div>
@@ -266,13 +297,15 @@ export default{
                 semester: null
             },
 
-            isModalCreate: false,
-     
+            modalCancelEnrolment: false,
+            
+            fields: {},
             errors: {},
 
             academicYears: [],
             gradeLevels: [],
             semesters: [],
+
         }
 
     },
@@ -394,6 +427,25 @@ export default{
                 this.search.semester = null
             }
             
+        },
+
+
+        /** this is modal for change status of the student */
+        openCancelEnrolment(dataId){
+            //this.modalCancelEnrolment = true
+            window.location = '/enrollee-update-status/' +dataId
+        },
+        confirmWithdraw(dataId){
+            axios.post('/enrollee-withdraw/' +dataId).then(res=>{
+                if(res.data.status === 'withdraw'){
+                    this.$buefy.dialog.alert({
+                        title: 'Success',
+                        type: 'is-success',
+                        message: 'Successfully withdraw',
+                        onConfirm: () => this.loadAsyncData()
+                    });
+                }
+            })
         }
 
 
@@ -415,24 +467,31 @@ export default{
 
 <style scoped>
 
+    .enroled{
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+    }
 
+    .admitted{
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: #2335a0;
+        color: #ffffff;
+    }
 
-.enroled{
-    font-weight: bold;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: green;
-    color: white;
-}
-
-.admitted{
-    font-weight: bold;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #2335a0;
-    color: #ffffff;
-}
+    .withdraw {
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: #af2424;
+        color: #ffffff;
+    }
 
 </style>

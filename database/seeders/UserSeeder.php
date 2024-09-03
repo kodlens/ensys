@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'sex' => 'FEMALE',
                 //'email' => 'mayesel@dev.com',
                 'role' => 'ADMINISTRATOR',
-                'password' => Hash::make('ensys!2023')
+                'password' => Hash::make('a')
             ],
 
    

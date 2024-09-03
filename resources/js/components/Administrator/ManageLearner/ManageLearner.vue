@@ -78,9 +78,6 @@
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.learner_id)"></b-button>
                                     </b-tooltip>
-<!--                                    <b-tooltip label="Reset Password" type="is-info">-->
-<!--                                        <b-button class="button is-small mr-1" icon-right="lock" @click="openModalResetPassword(props.row.learner_id)"></b-button>-->
-<!--                                    </b-tooltip>-->
                                 </div>
                             </b-table-column>
                         </b-table>
@@ -103,59 +100,6 @@
             </div><!-- cols -->
         </div><!--section div-->
 
-
-
-
-
-        <!--modal reset password-->
-        <b-modal v-model="modalResetPassword" has-modal-card
-                 trap-focus
-                 :width="640"
-                 aria-role="dialog"
-                 aria-label="Modal"
-                 aria-modal>
-
-            <form @submit.prevent="resetPassword">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Change Password</p>
-                        <button
-                            type="button"
-                            class="delete"
-                            @click="modalResetPassword = false"/>
-                    </header>
-
-                    <section class="modal-card-body">
-                        <div class="">
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Password" label-position="on-border"
-                                             :type="this.errors.password ? 'is-danger':''"
-                                             :message="this.errors.password ? this.errors.password[0] : ''">
-                                        <b-input type="password" v-model="fields.password" password-reveal
-                                                 placeholder="Password" required>
-                                        </b-input>
-                                    </b-field>
-                                    <b-field label="Confirm Password" label-position="on-border"
-                                             :type="this.errors.password_confirmation ? 'is-danger':''"
-                                             :message="this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''">
-                                        <b-input type="password" v-model="fields.password_confirmation"
-                                                 password-reveal
-                                                 placeholder="Confirm Password" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <button
-                            class="button is-primary">SAVE</button>
-                    </footer>
-                </div>
-            </form><!--close form-->
-        </b-modal>
-        <!--close modal-->
 
 
     </div>
