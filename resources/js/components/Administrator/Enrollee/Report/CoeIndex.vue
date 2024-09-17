@@ -5,38 +5,44 @@
             <div class="has-text-weight-bold has-text-centered is-size-5">
                 CERTIFICATE OF ENROLEMENT
             </div>
+
             <div class="has-text-weight-bold has-text-centered mb-4 is-size-6" v-if="learner.academic_year">
                 {{ learner.academic_year.academic_year_code }} - {{ learner.academic_year.academic_year_desc }}
             </div>
 
-            <table class="report-learner-info">
-                <tr>
-                    <td> NAME: </td>
-                    <td class="report-data">
+            <div class="is-flex is-justify-content-space-between">
+                <div>
+                    <div> 
+                        NAME:  
                         <span v-if="learner.learner">
                             {{ learner.learner.lname }}, {{ learner.learner.fname }} {{ learner.learner.mname }}
                         </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td> GRADE LEVEL & SECTION: </td>
-                    <td class="report-data">
-                        <span v-if="learner.learner">
+                    </div>
+
+                    <div> 
+                        GRADE LEVEL & SECTION:  
+                         <span v-if="learner.learner">
                             {{ learner.learner.grade_level }} - {{ learner.section.section }}
                         </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td> TRACK & STRAND: </td>
-                    <td class="report-data">
-                        <span v-if="learner.track">
+                    </div>
+
+                    <div> 
+                        TRACK & STRAND:  
+                         <span v-if="learner.track">
                             {{ learner.track.track }} - {{ learner.strand.strand }}
                         </span>
                         <span v-else>N/A</span>
-                    </td>
-                </tr>
-            </table>
-            <div class="mt-4 has-text-weight-bold">SUBJECTS</div>
+                    </div>
+                </div>
+
+                <div>
+                    <qrcode :value="JSON.stringify(student)" :options="{ width: 120 }"></qrcode>             
+                </div>
+            </div>
+            
+
+
+            <div class="has-text-weight-bold mb-2">SUBJECTS</div>
             <table class="report-subject-table">
                     <tr>
                         <th>Code</th>
@@ -85,6 +91,14 @@ export default{
     data(){
         return {
             learner: {},
+
+            student: {
+                lrn: '',
+                lname: '',
+                fname: '',
+                mname: '',
+                sex: ''
+            }
         }
     },
 
@@ -92,9 +106,16 @@ export default{
         loadReportLearner(){
             axios.get('/get-report-learner/' + this.propLearnerId + '/' + this.propAcademicYearId).then(res=>{
                 this.learner = res.data
-                console.log(this.learner);
+
+                this.student.lrn = res.data.learner.lrn;
+                this.student.lname = res.data.learner.lname;
+                this.student.fname = res.data.learner.fname;
+                this.student.mname = res.data.learner.mname;
+                this.student.sex = res.data.learner.sex;
+
+
             })
-        }
+        },
     },
 
     mounted(){

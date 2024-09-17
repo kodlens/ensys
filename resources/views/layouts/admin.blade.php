@@ -173,6 +173,9 @@
                     <b-navbar-item href="/report-class-list">
                         Class List
                     </b-navbar-item>
+                    <b-navbar-item href="/report-no-of-enrolment">
+                        No. of Enrolment
+                    </b-navbar-item>
                     <b-navbar-item href="/report-enrolment-list">
                         Enrolment List
                     </b-navbar-item>

@@ -207,6 +207,9 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/report-enrolment-list', [App\Http\Controllers\Administrator\ReportEnrolmentListController::class, 'index']);
     Route::get('/get-report-enrolment-list', [App\Http\Controllers\Administrator\ReportEnrolmentListController::class, 'getReportEnrolmentList']);
 
+    Route::get('/report-no-of-enrolment', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'index']);
+    Route::get('/get-report-no-of-enrolment', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'getReportEnrolmentList']);
+    
     
 
 });

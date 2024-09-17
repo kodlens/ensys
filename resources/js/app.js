@@ -53,8 +53,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 Vue.use(Buefy)
 
 //Vue.use(VueQrcodeReader); //https://gruhn.github.io/vue-qrcode-reader/demos/CustomTracking.html
-//Vue.component(VueQrcode.name, VueQrcode);
-
+Vue.component(VueQrcode.name, VueQrcode);
 
 Vue.filter('formatTime', function(value) {
     var timeString = value;
