@@ -43,7 +43,7 @@
     
     <div id="app">
         
-        <b-navbar>
+        <b-navbar spaced shadow>
             <template #brand>
                 <b-navbar-item>
                     <img src="/img/tcnhs_logo.png" />

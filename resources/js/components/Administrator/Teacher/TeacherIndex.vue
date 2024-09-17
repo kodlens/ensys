@@ -9,13 +9,13 @@
 
                         <b-field label="Search" label-position="on-border">
                             <b-input type="text"
-                                        v-model="search.name" placeholder="Search name"
-                                        @keyup.native.enter="loadAsyncData"/>
+                                v-model="search.name" placeholder="Search name"
+                                @keyup.native.enter="loadAsyncData"/>
                             <p class="control">
-                                    <b-tooltip label="Search" type="is-success">
-                                        <b-button type="is-primary" 
-                                            icon-right="magnify" @click="loadAsyncData"/>
-                                    </b-tooltip>
+                                <b-tooltip label="Search" type="is-success">
+                                    <b-button type="is-primary" 
+                                        icon-right="magnify" @click="loadAsyncData"/>
+                                </b-tooltip>
                             </p>
                         </b-field>
 
