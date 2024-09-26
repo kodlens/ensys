@@ -50,7 +50,7 @@
                     @auth()
                         {{ Auth::user()->role }}
                     @else
-                        ENSYS
+                        <span class="has-text-weight-bold">ENSYS</span>
                     @endauth
                 </b-navbar-item>
             </template>

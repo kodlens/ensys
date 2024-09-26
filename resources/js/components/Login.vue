@@ -1,7 +1,7 @@
 <template>
     <div class="login-wrapper">
         <form @submit.prevent="submit">
-            <div class="login-card">
+            <div class="box">
                 <div class="title is-4 is-centered">
                     SIGN IN
                 </div>
@@ -19,7 +19,12 @@
                     </b-field>
 
                     <div class="buttons is-centered mt-4">
-                        <button class="w-button is-primary is-outlined" :loading="loading">LOGIN</button>
+                        <button 
+                            tag="button" 
+                            class="button is-primary" :loading="loading">
+                            LOGIN
+                            <b-icon class="ml-2" icon="arrow-right"></b-icon>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -62,7 +67,14 @@ export default {
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
                 }
+
+                this.clearFields()
             });
+        },
+
+        clearFields(){
+            this.fields.username = ''
+            this.fields.password = ''
         }
     }
 }

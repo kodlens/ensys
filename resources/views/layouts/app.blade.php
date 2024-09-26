@@ -81,7 +81,7 @@
             <template #brand>
                 <b-navbar-item>
                     <img src="/img/tcnhs_logo.png" />
-                    <span class="ml-2">ENSYS</span>
+                    <span class="ml-2 has-text-weight-bold">ENSYS</span>
                 </b-navbar-item>
             </template>
     
