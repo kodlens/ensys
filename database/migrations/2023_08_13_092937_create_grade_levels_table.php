@@ -17,6 +17,7 @@ class CreateGradeLevelsTable extends Migration
             $table->id('grade_level_id');
             $table->string('grade_level')->nullable();
             $table->string('curriculum_code')->nullable();
+            $table->integer('order_no')->default(0);
             $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });

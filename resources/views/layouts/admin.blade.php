@@ -48,7 +48,8 @@
                 <b-navbar-item>
                     <img src="/img/tcnhs_logo.png" />
                     @auth()
-                        {{ Auth::user()->role }}
+                        <span class="has-text-weight-bold ml-2">{{ Auth::user()->role }}</span>
+                        
                     @else
                         <span class="has-text-weight-bold">ENSYS</span>
                     @endauth
