@@ -21,7 +21,7 @@
                     <div class="buttons is-centered mt-4">
                         <button 
                             tag="button" 
-                            class="button is-primary" :loading="loading">
+                            :class="btnClass">
                             LOGIN
                             <b-icon class="ml-2" icon="arrow-right"></b-icon>
                         </button>
@@ -43,6 +43,12 @@ export default {
                 password: null,
             },
 
+            btnClass: {
+                'button': true,
+                'is-primary':true,
+                'is-loading':false,
+            },
+
             loading: false,
 
             errors: {},
@@ -51,9 +57,10 @@ export default {
 
     methods: {
         submit: function(){
-            this.loading = true
+            this.btnClass['is-loading'] = true
             axios.post('/login', this.fields).then(res=>{
                 //console.log(res.data)
+            this.btnClass['is-loading'] = false
 
                 if(res.data){
                     window.location = '/login'
@@ -62,8 +69,7 @@ export default {
 
                //window.location = '/dashboard';
             }).catch(err=>{
-                this.loading = false
-
+                this.btnClass['is-loading'] = false
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
                 }
