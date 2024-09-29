@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Learner;
-
+use Illuminate\Support\Facades\Storage;
+use App\Models\EnrolleeCredential;
 
 class EnrolleeCredentialListController extends Controller
 {
@@ -29,4 +30,26 @@ class EnrolleeCredentialListController extends Controller
         return $data;
 
     }
+
+
+    private $fileCustomPath = 'public/credentials/'; //this is for delete, or checking if file is exist
+    //default dir(from root dir of laravel) to visit is storage/app/public/credentials folder
+
+    public function destroy($id){
+        $data = EnrolleeCredential::find($id);
+        
+        if(Storage::exists($this->fileCustomPath . $data->file_path)) {
+            Storage::delete($this->fileCustomPath . $data->file_path);
+        }
+
+        EnrolleeCredential::destroy($id);
+
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
+
+    }
+
+
+
 }

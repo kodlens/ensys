@@ -94,7 +94,7 @@
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small mr-1" 
                                             icon-right="delete" 
-                                            @click="confirmDelete(props.row.)"></b-button>
+                                            @click="confirmFileDelete(props.row.)"></b-button>
                                     </b-tooltip>
 
                                     <b-tooltip label="More options">
@@ -121,6 +121,7 @@
                                     <tr>
                                         <th>Description</th>
                                         <th>File</th>
+                                        <th>Action</th>
                              
                                     </tr>
                                     <tr v-for="(item, ix) in props.row.credentials" :key="`subj${ix}`">
@@ -131,6 +132,14 @@
                                                 target="_blank"
                                                 tag="a"
                                                 :href="`/storage/credentials/${item.file_path}`"></b-button>
+                                        </td>
+
+                                        <td>
+                                            <b-button class="" 
+                                                icon-left="delete"
+                                                size="is-small"
+                                                type="is-danger"
+                                                @click="confirmFileDelete(item.enrollee_credential_id)"></b-button>
                                         </td>
                                     </tr>
                                 </table>
@@ -302,19 +311,19 @@ export default{
 
 
         //alert box ask for deletion
-        confirmDelete(dataId) {
+        confirmFileDelete(dataId) {
             this.$buefy.dialog.confirm({
                 title: 'DELETE!',
                 type: 'is-danger',
-                message: 'Are you sure you want to delete this data?',
+                message: 'Are you sure you want to delete this file?',
                 cancelText: 'Cancel',
                 confirmText: 'Delete',
-                onConfirm: () => this.deleteSubmit(dataId)
+                onConfirm: () => this.deleteFileSubmit(dataId)
             });
         },
         //execute delete after confirming
-        deleteSubmit(dataId) {
-            axios.delete('/enrollee/' + dataId).then(res => {
+        deleteFileSubmit(dataId) {
+            axios.delete('/enrollee-credential-list/' + dataId).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {

@@ -177,9 +177,9 @@
                     <b-navbar-item href="/report-no-of-enrolment">
                         No. of Enrolment
                     </b-navbar-item>
-                    <b-navbar-item href="/report-enrolment-list">
+                    {{-- <b-navbar-item href="/report-enrolment-list">
                         Enrolment List
-                    </b-navbar-item>
+                    </b-navbar-item> --}}
                 </b-navbar-dropdown>
 
                 <b-navbar-item href="/users">
