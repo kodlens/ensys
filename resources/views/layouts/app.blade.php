@@ -92,9 +92,14 @@
     
             <template #end>
                 <b-navbar-item href="/">
-                        Home
+                    Home
                 </b-navbar-item>
                 @auth()
+
+                    <b-navbar-item href="/admin-dashboard">
+                        Panel
+                    </b-navbar-item>
+
                     <b-navbar-item tag="div">
                         <div class="buttons">
                             <b-button label="LOGOUT" icon-left="logout" onclick="document.getElementById('logout').submit()">

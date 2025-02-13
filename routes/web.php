@@ -94,10 +94,22 @@ Route::middleware(['auth', 'teacher'])->group(function(){
 });
 
 
+Route::middleware(['auth', 'admin'])->group(function(){
+    
+    Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
+    Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+
+    Route::post('/user-reset-password/{userid}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
+
+});
+
+
+
+
 
 // -----------------------ADMINISTRATOR-----------------------------------
 
-Route::middleware(['auth', 'admin'])->group(function(){
+Route::middleware(['auth', 'registrar'])->group(function(){
 
     Route::get('/admin-dashboard', [App\Http\Controllers\Administrator\AdminDashboardController::class, 'index']);
 
@@ -192,11 +204,6 @@ Route::middleware(['auth', 'admin'])->group(function(){
     
     Route::resource('/enrollee-credential-list', App\Http\Controllers\Administrator\EnrolleeCredentialListController::class);
     Route::get('/get-enrollee-credential-list', [App\Http\Controllers\Administrator\EnrolleeCredentialListController::class, 'getData']);
-
-    Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
-    Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
-
-    Route::post('/user-reset-password/{userid}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
     Route::get('/report-class-list', [App\Http\Controllers\Administrator\ReportClassListController::class, 'index']);
     Route::get('/get-report-class-list', [App\Http\Controllers\Administrator\ReportClassListController::class, 'getReportClassList']);
