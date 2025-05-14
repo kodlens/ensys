@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\GradeLevelSubject;
+use App\Models\GroupSubject;
 
 class GroupSubjectController extends Controller
 {
@@ -21,12 +21,12 @@ class GroupSubjectController extends Controller
     public function getData(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = GradeLevelSubject::with(['subject', 'semester'])
+        $data = GroupSubject::with(['subject', 'semester'])
             ->whereHas('subject', function($q)use($req){
                 $q->where('subject_code', 'like', $req->subject . '%')
                     ->where('subject_description', 'like', $req->subject . '%');
             })
-            ->where('grade_level', 'like', $req->grade . '%')
+            ->where('name', 'like', $req->name . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

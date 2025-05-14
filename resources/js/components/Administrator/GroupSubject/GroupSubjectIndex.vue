@@ -117,7 +117,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'grade_level_subject_id',
+            sortField: 'group_subject_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 10,
@@ -127,7 +127,8 @@ export default{
 
             search: {
                 subject: '',
-                grade: ''
+                grade: '',
+                name: ''
             },
 
             gradeLevels: [],
@@ -144,7 +145,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `subject=${this.search.subject}`,
-                `grade=${this.search.grade}`,
+                `name=${this.search.name}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')

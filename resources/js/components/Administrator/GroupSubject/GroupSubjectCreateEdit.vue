@@ -9,9 +9,9 @@
                     <div class="box">
                         <div class="has-text-weight-bold is-size-4">ADD/EDIT GROUP SUBJECT</div>
                         <div class="has-text-weight-bold mb-4 is-size-6">
-                            Manage (add/edit) subjects per section.
+                            Manage (add/edit) group subject per section.
                         </div>
-                        <div class="has-text-weight-bold mb-4 info-header">GRADE AND SUBJECT INFORMATION</div>
+                        <div class="has-text-weight-bold mb-4 info-header">GROUP SUBJECT INFORMATION</div>
                         
                         <div>
                             <!-- <div class="columns">
@@ -243,7 +243,7 @@ export default{
 <style scoped>
 
 .info-header{
-    background-color: green;
+    background-color: #1f3596;
     padding: 10px;
     color: white;
 }
