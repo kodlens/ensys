@@ -99,10 +99,13 @@
                     <b-navbar-item href="/grade-levels">
                         Grade Level
                     </b-navbar-item>
-
                     
                     <b-navbar-item href="/grade-level-subjects">
                         Setup Grade Level Subjects
+                    </b-navbar-item>
+
+                    <b-navbar-item href="/group-subjects">
+                        Setup Group Subjects
                     </b-navbar-item>
 
                     <b-navbar-item href="/sections">

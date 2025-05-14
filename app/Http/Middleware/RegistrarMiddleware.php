@@ -18,7 +18,7 @@ class RegistrarMiddleware
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if($role === 'REGISTRAR'){
+        if($role === 'REGISTRAR' || $role === 'ADMINISTRATOR'){
 
             $response = $next($request);
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');

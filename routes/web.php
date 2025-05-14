@@ -151,6 +151,10 @@ Route::middleware(['auth', 'registrar'])->group(function(){
     Route::resource('/grade-level-subjects', App\Http\Controllers\Administrator\GradeLevelSubjectController::class);
     Route::get('/get-grade-level-subjects', [App\Http\Controllers\Administrator\GradeLevelSubjectController::class, 'getData']);
 
+    Route::resource('/group-subjects', App\Http\Controllers\Administrator\GroupSubjectController::class);
+    Route::get('/get-group-subjects', [App\Http\Controllers\Administrator\GroupSubjectController::class, 'getData']);
+
+
     Route::resource('/enrollee', App\Http\Controllers\Administrator\EnrolleeController::class);
     Route::get('/get-enrollees', [App\Http\Controllers\Administrator\EnrolleeController::class, 'getEnrollees']);
     Route::get('/get-browse-enrollees', [App\Http\Controllers\Administrator\EnrolleeController::class, 'getBrowseEnrollees']);
