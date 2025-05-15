@@ -8,6 +8,7 @@ use App\Models\Enroll;
 use App\Models\AcademicYear;
 use App\Models\EnrollSubject;
 use Auth;
+use App\Models\Group;
 
 class EnrollmentController extends Controller
 {
@@ -18,7 +19,6 @@ class EnrollmentController extends Controller
     }
 
     public function store(Request $req){
-        
 
         $req->validate([
             'learner_id' => ['required'],
@@ -76,10 +76,23 @@ class EnrollmentController extends Controller
 
         EnrollSubject::insert($arr);
 
+        return 'saved';
+
         return response()->json([
             'status' => 'saved'
         ], 200);
 
        
+    }
+
+
+    public function getModalBrowseGroupsWithSubjects(Request $req){
+        $sort = explode('.', $req->sort_by);
+
+        $data = Group::with(['group_subjects.subject'])
+            ->orderBy($sort[0], $sort[1])
+            ->paginate($req->perpage);
+
+        return $data;
     }
 }

@@ -20,12 +20,8 @@ class Group extends Model
     ];
 
 
-    public function subject(){
-        return $this->hasOne(Subject::class, 'subject_id', 'subject_id');
-    }
-
-    public function semester(){
-        return $this->hasOne(Semester::class, 'semester_id', 'semester_id');
+    public function group_subjects(){
+        return $this->hasMany(GroupSubject::class, 'group_id', 'group_id');
     }
 
 }

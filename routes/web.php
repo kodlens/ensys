@@ -237,6 +237,9 @@ Route::middleware(['auth', 'registrar'])->group(function(){
 
  Route::get('/get-modal-browse-subjects', [App\Http\Controllers\Administrator\SubjectController::class, 'getModalBrowseSubject']);
 
+
+ Route::get('/get-modal-browse-groups-with-subejcts', [App\Http\Controllers\Administrator\EnrollmentController::class, 'getModalBrowseGroupsWithSubjects']);
+
 });
 
 

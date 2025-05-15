@@ -184,6 +184,9 @@
                             <div class="buttons is-right mt-4">
                                 <modal-browse-button-subject
                                     @browseSubject="emitBrowseSubject($event)"></modal-browse-button-subject>
+
+                                <modal-browse-button-group-subject 
+                                    @browseGroupSubject="emitBrowseGroupSubject($event)"></modal-browse-button-group-subject>
                             </div>
                         </div> <!--if SHS-->
                         
@@ -292,6 +295,24 @@ export default{
                 subj_name: row.subject_code + ' - ' + row.subject_description
             })
 
+        },
+
+        emitBrowseGroupSubject(row, ix){
+
+            row.group_subjects.forEach(item => {
+                console.log(item); 
+                this.learner.subjects.push({
+                    subject_id: item.subject_id,
+                    subject_code: item.subject.subject_code,
+                    subject_description: item.subject_description,
+                    units: item.subject.units,
+                    class: item.subject.class,
+                    fee: item.subject.fee,
+                    subj_name: item.subject.subject_code + ' - ' + item.subject.subject_description
+                })
+            });
+            
+            
         },
 
         removeSubject(index){
@@ -448,6 +469,8 @@ export default{
 </script>
 
 <style scoped>
-
+    .box {
+        border-top: 2px green;
+    }
 
 </style>
