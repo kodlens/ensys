@@ -47,9 +47,7 @@
                                         </b-select >
                                     </b-field>
                                 </div> <!--col--> 
-
                             </div> <!--cols-->
-
                         </div>
 
                         <hr>
