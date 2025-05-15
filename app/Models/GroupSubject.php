@@ -13,7 +13,7 @@ class GroupSubject extends Model
     protected $primaryKey = 'group_subject_id';
 
     protected $fillable = [
-    
+        'group_id',
         'subject_id',
         'semester_id',
         'name',
@@ -27,6 +27,10 @@ class GroupSubject extends Model
 
     public function semester(){
         return $this->hasOne(Semester::class, 'semester_id', 'semester_id');
+    }
+
+    public function group(){
+        return $this->belongsTo(Group::class, 'group_id', 'group_id');
     }
 
 

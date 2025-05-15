@@ -13,6 +13,7 @@ use App\Models\Section;
 use App\Models\OtherFee;
 use App\Models\Curriculum;
 use App\Models\GradeLevelSubject;
+use App\Models\Group;
 
 
 class OpenController extends Controller
@@ -88,6 +89,11 @@ class OpenController extends Controller
             ->get();
     }
 
+    public function loadGroups(){
+        return Group::where('active', 1)
+            ->orderBy('group_id', 'asc')
+            ->get();
+    }
 
     
 

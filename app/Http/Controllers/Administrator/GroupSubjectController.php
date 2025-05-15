@@ -14,19 +14,17 @@ class GroupSubjectController extends Controller
 
 
     public function show($id){
-    
+        return Group::find($id);
     }
 
 
     public function getData(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = GroupSubject::with(['subject', 'semester'])
-            ->whereHas('subject', function($q)use($req){
-                $q->where('subject_code', 'like', $req->subject . '%')
-                    ->where('subject_description', 'like', $req->subject . '%');
+        $data = GroupSubject::with(['group', 'subject'])
+            ->whereHas('group', function($q) use ($req){
+                $q->where('group_name', 'like', $req->name . '%');
             })
-            ->where('name', 'like', $req->name . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -40,30 +38,24 @@ class GroupSubjectController extends Controller
 
 
     public function store(Request $req){
+       
+
         $req->validate([
             //'academic_year_id' => ['required'],
-            'grade_level' => ['required'],
-            'subjects' => ['required'],
-            'semester_id' => ['required_if:grade_level.curriculum_code,SHS']
-        ],[
-            'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
+            'group_id' => ['required'],
+        ],
+        [
+            'group_id.required' => 'Please select a group'
         ]);
 
-        //return $req;
-
-        foreach($req->subjects as $item){
-            GradeLevelSubject::updateOrCreate([
+       foreach($req->subjects as $item){
+            GroupSubject::updateOrCreate([
                 //'academic_year_id' => $req->academic_year_id,
-                'grade_level' => $req->grade_level['grade_level'],
+                'group_id' => $req->group_id,
                 'subject_id' => $item['subject_id']
             ],[
                 //'academic_year_id' => $req->academic_year_id,
-                'grade_level' => $req->grade_level['grade_level'],
-                'curriculum_code' => $req->grade_level['curriculum_code'],
-                'semester_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->semester_id : 0,
-                // 'track_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->track_id : 0,
-                // 'strand_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->strand_id : 0,
-                'subject_id' => $item['subject_id']
+                'subject_id' => $item['subject_id'],
             ]);
         }
         
@@ -75,7 +67,7 @@ class GroupSubjectController extends Controller
 
 
     public function destroy($id){
-        GradeLevelSubject::destroy($id);
+        Group::destroy($id);
 
         return response()->json([
             'status' => 'deleted'

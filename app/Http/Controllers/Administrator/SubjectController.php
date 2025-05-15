@@ -29,6 +29,7 @@ class SubjectController extends Controller
         return $data;
     }
 
+
     public function store(Request $req){
         $req->validate([
             'subject_code' => ['required','unique:subjects'],
@@ -93,6 +94,18 @@ class SubjectController extends Controller
 
         return $data;
 
+    }
+
+
+    
+    public function getModalBrowseSubject(Request $req){
+        $sort = explode('.', $req->sort_by);
+        $data = Subject::where('subject_code', 'like', $req->code . '%')
+            ->where('subject_description', 'like', $req->desc . '%')
+            ->orderBy($sort[0], $sort[1])
+            ->paginate($req->perpage);
+
+        return $data;
     }
 
 

@@ -32,40 +32,22 @@
                                 <div class="column">
                                     <b-field label="Grade Level"
                                         expanded
-                                        :type="errors.grade_level ? 'is-danger':''"
-                                        :message="errors.grade_level ? errors.grade_level[0] : ''" >
+                                        :type="errors.group_id ? 'is-danger':''"
+                                        :message="errors.group_id ? errors.group_id[0] : ''" >
                                         <b-select
                                             expanded
                                             icon="account"
                                             placeholder="Grade Level"
-                                            v-model="fields.grade_level"
+                                            v-model="fields.group_id"
                                             required>
-                                            <option :value="{ grade_level: item.grade_level, curriculum_code: item.curriculum_code }"
-                                                    v-for="(item, ix) in gradeLevels" :key="`g${ix}`">
-                                                {{ item.grade_level }}
+                                            <option :value="item.group_id"
+                                                    v-for="(item, ix) in groups" :key="`g${ix}`">
+                                                {{ item.group_name }}
                                             </option>
                                         </b-select >
                                     </b-field>
                                 </div> <!--col--> 
 
-                                <div class="column" v-if="fields.grade_level['curriculum_code'] === 'SHS'">
-                                    <b-field label="Semester"
-                                        expanded
-                                        :type="errors.semester_id ? 'is-danger':''"
-                                        :message="errors.semester_id ? errors.semester_id[0] : ''" >
-                                        <b-select
-                                            expanded
-                                            icon="account"
-                                            placeholder="Semester"
-                                            v-model="fields.semester_id"
-                                            required>
-                                            <option :value="item.semester_id"
-                                                    v-for="(item, ix) in semesters" :key="`sem${ix}`">
-                                                {{ item.semester }}
-                                            </option>
-                                        </b-select >
-                                    </b-field>
-                                </div> <!--col--> 
                             </div> <!--cols-->
 
                         </div>
@@ -103,7 +85,7 @@
                         <div class="buttons mt-4 is-right">
                             <b-button class="is-primary has-text-weight-bold"
                                 @click="submit"
-                                label="SAVE GRADE LEVEL SUBJECTS" icon-right="arrow-right"></b-button>
+                                label="SAVE GROUP SUBJECTS" icon-right="arrow-right"></b-button>
                         </div>
                         
                     </div> <!--panel-->
@@ -122,12 +104,12 @@ export default{
             section_subjects: {},
 
             fields: {
-                grade_level: {},
+                group_id: 0,
                 subjects: []
             },
             errors: {},
 
-            gradeLevels: [],
+            groups: [],
             semesters: [],
 
 
@@ -190,13 +172,13 @@ export default{
 
         submit(){
             this.errors = {}
-            axios.post('/grade-level-subjects', this.fields).then(res=>{
+            axios.post('/group-subjects', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: "Saved!",
                         message: 'Data successfully saved.',
                         type: 'is-success',
-                        onConfirm: ()=>  window.location = '/grade-level-subjects'
+                        onConfirm: ()=>  window.location = '/group-subjects'
                     });
                 }
             }).catch(err=>{
@@ -216,9 +198,9 @@ export default{
 
 
 
-        loadGradeLevels(){
-            axios.get('/load-grade-levels').then(res=>{
-                this.gradeLevels = res.data;
+        loadGroups(){
+            axios.get('/load-groups').then(res=>{
+                this.groups = res.data;
             })
         },
 
@@ -233,7 +215,7 @@ export default{
 
     mounted(){
 
-        this.loadGradeLevels()
+        this.loadGroups()
         this.loadSemesters()
 
     }

@@ -66,6 +66,7 @@ Route::get('/load-curriculums', [App\Http\Controllers\OpenController::class, 'lo
 Route::get('/load-grade-level-subjects/{gradeLevel}', [App\Http\Controllers\OpenController::class, 'loadGradeLevelSubjects']);
 
 Route::get('/load-subjects-by-semester/{gradeLevel}/{semesterId}', [App\Http\Controllers\OpenController::class, 'loadSubjectsBySemester']);
+Route::get('/load-groups', [App\Http\Controllers\OpenController::class, 'loadGroups']);
 
 
 
@@ -151,6 +152,9 @@ Route::middleware(['auth', 'registrar'])->group(function(){
     Route::resource('/grade-level-subjects', App\Http\Controllers\Administrator\GradeLevelSubjectController::class);
     Route::get('/get-grade-level-subjects', [App\Http\Controllers\Administrator\GradeLevelSubjectController::class, 'getData']);
 
+    Route::resource('/groups', App\Http\Controllers\Administrator\GroupController::class);
+    Route::get('/get-groups', [App\Http\Controllers\Administrator\GroupController::class, 'getData']);
+
     Route::resource('/group-subjects', App\Http\Controllers\Administrator\GroupSubjectController::class);
     Route::get('/get-group-subjects', [App\Http\Controllers\Administrator\GroupSubjectController::class, 'getData']);
 
@@ -229,8 +233,11 @@ Route::middleware(['auth', 'registrar'])->group(function(){
 
 // -----------------------ADMINSITRATOR-------------------------------------------
 
+Route::middleware(['auth', 'registrar'])->group(function(){
 
+ Route::get('/get-modal-browse-subjects', [App\Http\Controllers\Administrator\SubjectController::class, 'getModalBrowseSubject']);
 
+});
 
 
 Route::get('/session', function(){

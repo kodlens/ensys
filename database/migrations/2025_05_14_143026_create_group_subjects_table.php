@@ -15,6 +15,7 @@ class CreateGroupSubjectsTable extends Migration
     {
         Schema::create('group_subjects', function (Blueprint $table) {
             $table->id('group_subject_id');
+            $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('semester_id');
             

@@ -47,12 +47,12 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="grade_level_subject_id" label="ID" sortable v-slot="props">
-                                {{ props.row.grade_level_subject_id }}
+                            <b-table-column field="group_subject_id" label="Id" sortable v-slot="props">
+                                {{ props.row.group_subject_id }}
                             </b-table-column>
 
-                            <b-table-column field="grade_level" label="Grade Level" v-slot="props">
-                                {{ props.row.grade_level }}
+                            <b-table-column field="group_name" label="Grade Name" v-slot="props">
+                                {{ props.row.group.group_name }}
                             </b-table-column>
 
                             <b-table-column field="subject" sortable label="Subject" v-slot="props">
