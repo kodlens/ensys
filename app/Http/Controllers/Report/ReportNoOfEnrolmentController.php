@@ -60,4 +60,20 @@ class ReportNoOfEnrolmentController extends Controller
             'ay' => $ay
         ], 200);
     }
+
+
+    public function reportCountByStrand(Request $req){
+
+       
+        $ay = AcademicYear::where('is_active', 1)->first();
+
+        $reports = \DB::select("
+            CALL report_by_strand;
+        ");
+
+        return response()->json([
+            'reports' => $reports,
+            'ay' => $ay
+        ], 200);
+    }
 }

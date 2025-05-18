@@ -20,6 +20,8 @@ class EnrollmentController extends Controller
 
     public function store(Request $req){
 
+        return $req;
+        
         $req->validate([
             'learner_id' => ['required'],
             'grade_level' => ['required'],

@@ -6,7 +6,7 @@
 
                     <div class="box">
                         <h1 class="subtitle has-text-weight-bold">
-                            YOUR REFERENCE NO.
+                            ENROLLMENT REFERENCE NUMBER
                         </h1>
                         <h1 class="title p-4">
                              {{propRef}}

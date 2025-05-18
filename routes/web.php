@@ -224,6 +224,7 @@ Route::middleware(['auth', 'registrar'])->group(function(){
 
     Route::get('/report-no-of-enrolment', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'index']);
     Route::get('/get-report-no-of-enrolment', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'getReportEnrolmentList']);
+    Route::get('/get-report-by-strand', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'reportCountByStrand']);
     
     
 

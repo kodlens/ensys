@@ -63,8 +63,11 @@
                             
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Subjet Name" label-position="on-border">
-                                        <b-input type="text" readonly v-model="item.subj_name" 
+                                    <b-field label="Subjet Name" 
+                                        label-position="on-border">
+                                        <b-input type="text" 
+                                            readonly 
+                                            v-model="item.subj_name" 
                                             placeholder="Subjet Name" /></b-field>
                                 </div> <!--col--> 
                                 <div class="column is-1">
@@ -83,7 +86,8 @@
                         <div class="buttons mt-4 is-right">
                             <b-button class="is-primary has-text-weight-bold"
                                 @click="submit"
-                                label="SAVE GROUP SUBJECTS" icon-right="arrow-right"></b-button>
+                                label="SAVE GROUP SUBJECTS" 
+                                icon-right="arrow-right"></b-button>
                         </div>
                         
                     </div> <!--panel-->
