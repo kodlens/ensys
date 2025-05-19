@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Section;
 use App\Models\EnrollSubject;
+use App\Models\AcademicYear;
 
 class ReportClassListController extends Controller
 {
@@ -18,6 +19,7 @@ class ReportClassListController extends Controller
 
 
     public function getReportClassList(Request $req){
+        $ay = AcademicYear::where('is_active', 1)->first();
 
         return Section::with(['enrollees', 
             'enrollees.subjects.subject',
@@ -26,12 +28,16 @@ class ReportClassListController extends Controller
             'enrollees.strand',
             'enrollees.semester',
             'enrollees.grades'])
+            ->whereHas('enrollees.academic_year', function($q) use ($ay){
+                $q->where('is_active', 1);
+            })
             ->get();
     }
 
 
     public function getReportClassListBySubject(Request $req){
-        $ayId = $req->ayid;
+       // $ayId = $req->ayid;
+        $ay = AcademicYear::where('is_active', 1)->first();
 
         $data = EnrollSubject::join('enrolls as b', 'enroll_subjects.enroll_id', 'b.enroll_id')
             ->join('subjects', 'enroll_subjects.subject_id', 'subjects.subject_id')
@@ -42,7 +48,7 @@ class ReportClassListController extends Controller
             ->leftJoin('tracks', 'b.track_id', 'tracks.track_id')
             ->leftJoin('strands', 'b.strand_id', 'strands.strand_id')
 
-            ->where('b.academic_year_id', $ayId)
+            ->where('b.academic_year_id', $ay->academic_year_id)
             ->get();
 
         return $data;
