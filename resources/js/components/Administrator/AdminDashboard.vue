@@ -5,7 +5,8 @@
             <div class="section">
                 <div class="card p-4">
                     <div class="subtitle">TOTAL NO. OF ENROLMENT</div>
-                    <div class="mt-5 title">500</div>
+                    <div class="mt-5 title" v-if="info">{{ info.toLocaleString() }}</div>
+                    <div class="mt-5 title" v-else>...</div>
                 </div>
             </div>
             <!-- <div class="logo-wrapper">
@@ -32,15 +33,23 @@
 export default {
 	data(){
 		return{
-            info: {},
+            info: null,
 
 		}
 	},
 
 	methods:{
+        loadCountEnrolls(){
+            axios.get('/count-enrolls').then(res=>{
+                this.info = res.data
+            }).catch(err=>{
+            
+            })
+        }
 	},
 
     mounted() {
+        this.loadCountEnrolls()
     }
 }
 </script>
