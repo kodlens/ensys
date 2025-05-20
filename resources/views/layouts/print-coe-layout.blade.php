@@ -12,11 +12,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-
-<!-- Styles -->
+    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/print.css') }}" rel="stylesheet">
 
+   
 
 </head>
 <body>

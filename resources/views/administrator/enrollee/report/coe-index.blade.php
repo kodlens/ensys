@@ -1,4 +1,4 @@
-@extends('layouts.print-layout')
+@extends('layouts.print-coe-layout')
 
 @section('content')
     <coe-index 
