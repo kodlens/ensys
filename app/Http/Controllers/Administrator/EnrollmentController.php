@@ -19,8 +19,6 @@ class EnrollmentController extends Controller
     }
 
     public function store(Request $req){
-
-        return $req;
         
         $req->validate([
             'learner_id' => ['required'],
@@ -78,7 +76,7 @@ class EnrollmentController extends Controller
 
         EnrollSubject::insert($arr);
 
-        return 'saved';
+        //return 'saved';
 
         return response()->json([
             'status' => 'saved'
