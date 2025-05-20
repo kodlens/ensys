@@ -3,7 +3,7 @@
         <div class="print-area">
 
             <div class="has-text-weight-bold has-text-centered" style="">
-                CERTIFICATE OF ENROLEMENT
+                CERTIFICATE OF ENROLLMENT
             </div>
 
             <div class="has-text-weight-bold has-text-centered mb-4" v-if="learner.academic_year">
