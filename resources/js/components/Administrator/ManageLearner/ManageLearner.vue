@@ -25,6 +25,10 @@
                                 class="is-primary is-small">ADD LEARNER</b-button>
                         </div>
 
+                        <div>
+                            TOTAL ROW(S): <span class="has-text-weight-bold" v-if="total > 0">{{ total }}</span>
+                        </div>
+
                         <b-table
                             :data="data"
                             :loading="loading"

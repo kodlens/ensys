@@ -114,6 +114,7 @@ Route::middleware(['auth', 'registrar'])->group(function(){
 
     Route::get('/admin-dashboard', [App\Http\Controllers\Administrator\AdminDashboardController::class, 'index']);
     Route::get('/count-enrolls', [App\Http\Controllers\Administrator\AdminDashboardController::class, 'countEnrolls']);
+    Route::get('/count-registered', [App\Http\Controllers\Administrator\AdminDashboardController::class, 'countRegistered']);
 
     Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
     Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getAcademicYears']);
