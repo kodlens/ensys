@@ -42,32 +42,44 @@
             
 
 
-            <div class="has-text-weight-bold mb-2">SUBJECTS</div>
+            <div class="has-text-weight-bold mb-2 has-text-centered">SUBJECTS</div>
             <table class="report-subject-table">
                 <tr>
                     <th>Code</th>
                     <th>Description</th>
-                    <th>Time</th>
+                    <th style="text-align: center;">Time</th>
                     <th>Day</th>
                     <th>Teacher</th>
                 </tr>
                 <tr v-for="(item, index) in learner.section_subjects" :key="`sub${index}`">
                     <td>{{ item.subject.subject_code }}</td>
-                    <td>{{ item.subject.subject_description }}</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>
+                    <td style="width: 200px;">{{ item.subject.subject_description }}</td>
+                    <td style="width: 120px; text-align: center;"></td>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 150px;">
                         <span v-if="item.teacher">
                             {{ item.teacher.lname }}, {{ item.teacher.fname }} {{ item.teacher.mname }}
                         </span>
                         <span v-else>
-                            ____________________
+                            
                         </span>
                     </td>
                 </tr>
             </table>
 
+            <div class="nprint">
+                <b-button 
+                    class="mt-5 is-small" 
+                    onclick="window.history.back()" icon-right="arrow-left">BACK</b-button>
+
+                    <b-button 
+                        class="mt-5 is-small" 
+                        onclick="window.print()" icon-right="printer">PRINT</b-button>
+            </div>
+
         </div>
+
+        
     </div>
 </template>
 
@@ -137,10 +149,11 @@ export default{
         }
      
          .report-subject-table {
+            padding: 0 10px;
             width: 100%;
         }
 
-        header, footer, aside, nav, form, iframe, .menu, .hero, .adslot, n.print {
+        header, footer, aside, nav, form, iframe, .menu, .hero, .adslot, .nprint {
             display: none;
         }
 
@@ -159,9 +172,17 @@ export default{
         margin: 10px auto;
     }
 
-   
-    .report-subject-table tr td {
+    .report-subject-table th{
+         border-top: 1px solid gray;
+         border-bottom: 1px solid gray;
+         padding: 10px 10px;
+    }
+    .report-subject-table tr th {
         padding: 0 8px;
+    }
+    .report-subject-table tr td {
+        padding: 4px 8px;
+        border-bottom: 1px solid rgb(211, 211, 211);
     }
 
 

@@ -130,12 +130,11 @@
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
+
                                     <b-tooltip label="Payment History" type="is-warning">
                                         <b-button class="button is-small mr-1" 
                                             tag="a" icon-right="history" 
                                             @click="getData(props.row.learner_id)"></b-button>
-
-                                          
                                     </b-tooltip>
 
                                     <b-tooltip label="Withdraw Enrolment" type="is-info">
@@ -144,8 +143,14 @@
                                             @click="openCancelEnrolment(props.row.enroll_id)"></b-button>
                                     </b-tooltip>
 
-                                    
+                                    <b-tooltip label="Print COE" type="is-info">
+                                         <b-button tag="a" 
+                                            :href="`/print-coe/${props.row.learner_id}/${search.ayid}`"
+                                            class="is-small is-outlined is-primary"
+                                            icon-left="printer"></b-button>
+                                    </b-tooltip>
                                 </div>
+
                             </b-table-column>
 
                             <template #detail="props">
@@ -293,7 +298,7 @@ export default{
             search: {
                 ayid: '',
                 name: '',
-                grade_level: {},
+                grade_level: { grade_level: '' },
                 semester: null
             },
 
@@ -409,8 +414,8 @@ export default{
             })
         },
 
-        loadGradeLevels(){
-            axios.get('/load-grade-levels').then(res=>{
+        async loadGradeLevels(){
+            await axios.get('/load-grade-levels').then(res=>{
                 this.gradeLevels = res.data
 
                 this.search.grade_level.grade_level = ''
@@ -453,8 +458,9 @@ export default{
 
     mounted() {
         this.loadAcademicYears().then(()=>{
-            this.loadAsyncData()
-            this.loadGradeLevels()
+            this.loadGradeLevels().then(()=>{
+                this.loadAsyncData()
+            })
         })
   
     }
