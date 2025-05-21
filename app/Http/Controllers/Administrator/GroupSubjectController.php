@@ -23,7 +23,7 @@ class GroupSubjectController extends Controller
 
         $data = GroupSubject::with(['group', 'subject'])
             ->whereHas('group', function($q) use ($req){
-                $q->where('group_name', 'like', $req->name . '%');
+                $q->where('group_name', 'like', $req->subject . '%');
             })
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
@@ -67,7 +67,7 @@ class GroupSubjectController extends Controller
 
 
     public function destroy($id){
-        Group::destroy($id);
+        GroupSubject::destroy($id);
 
         return response()->json([
             'status' => 'deleted'

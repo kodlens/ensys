@@ -77,7 +77,10 @@
                                 <div class="is-flex">
                                  
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.grade_level_subject_id)"></b-button>
+                                        <b-button 
+                                            class="button is-small mr-1" 
+                                            icon-right="delete" 
+                                            @click="confirmDelete(props.row.group_subject_id)"></b-button>
                                     </b-tooltip>
 
                                 </div>
@@ -145,7 +148,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `subject=${this.search.subject}`,
-                `name=${this.search.name}`,
+
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
@@ -199,7 +202,7 @@ export default{
             this.$buefy.dialog.confirm({
                 title: 'DELETE!',
                 type: 'is-danger',
-                message: 'Are you sure you want to delete this section?',
+                message: 'Are you sure you want to delete this subject?',
                 cancelText: 'Cancel',
                 confirmText: 'Delete',
                 onConfirm: () => this.deleteSubmit(delete_id)
@@ -207,7 +210,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/grade-level-subjects/' + delete_id).then(res => {
+            axios.delete('/group-subjects/' + delete_id).then(res => {
                 this.loadAsyncData();
                 this.clearFields()
             })
@@ -218,17 +221,10 @@ export default{
             this.fields.section = null
         },
 
-        loadGradeLevels(){
-            axios.get('/load-grade-levels').then(res=>{
-                this.gradeLevels = res.data
-            })
-        }
-
     },
 
     mounted() {
         this.loadAsyncData()
-        this.loadGradeLevels()
     }
 
 }
