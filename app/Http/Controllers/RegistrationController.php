@@ -30,7 +30,7 @@ class RegistrationController extends Controller
 
             'grade_level' => ['required'],
             'balik_aral' => ['required', 'string'],
-            'psa' => ['max:15'],
+            //'psa' => ['max:15'],
             'lrn' => ['max:15'],
 
             'lname' => ['required', 'string', 'max:50'],
