@@ -132,9 +132,15 @@
                                 <div class="is-flex">
 
                                     <b-tooltip label="Payment History" type="is-warning">
-                                        <b-button class="button is-small mr-1" 
-                                            tag="a" icon-right="history" 
+                                        <b-button class="button is-small mr-1"
+                                            icon-right="history" 
                                             @click="getData(props.row.learner_id)"></b-button>
+                                    </b-tooltip>
+
+                                     <b-tooltip label="Edit" type="is-info">
+                                        <b-button class="button is-small mr-1" 
+                                            :href="'/enrollee/' + props.row.enroll_id + '/edit'"
+                                            tag="a" icon-right="pencil"></b-button> 
                                     </b-tooltip>
 
                                     <b-tooltip label="Withdraw Enrolment" type="is-info">

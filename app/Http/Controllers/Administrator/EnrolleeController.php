@@ -39,6 +39,20 @@ class EnrolleeController extends Controller
     }
 
 
+    public function edit($id){
+        
+        $data = Enroll::with(['academic_year', 'learner', 
+            'grade_level',
+            'semester', 'track', 'strand', 
+            'section', 'section_subjects.subject'
+        ])
+        ->find($id);
+
+        return view('administrator.enrollee.enrollee-create-edit')
+            ->with('data', $data)
+            ->with('id', $id); 
+    }
+
     public function destroy($id){
         Enroll::destroy($id);
         return response()->json([

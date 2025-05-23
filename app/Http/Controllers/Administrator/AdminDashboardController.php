@@ -28,8 +28,4 @@ class AdminDashboardController extends Controller
         return Learner::where('academic_year_id', $ay->academic_year_id)
             ->count();
     }
-
-
-
-
 }
