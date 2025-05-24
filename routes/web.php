@@ -37,7 +37,9 @@ Route::get('/load-user', function(){
     }
 });
 
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
+    ->middleware('throttle:5,1');
+    // 5 attempts per 1 minute
 
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
