@@ -53,6 +53,47 @@ class EnrolleeController extends Controller
             ->with('id', $id); 
     }
 
+    public function update(Request $req, $id){
+
+        $req->validate([
+            'grade_level' => 'required',
+            'section_id' => 'required',
+            'semester_id' => 'required_if:grade_level.curriculum_code,SHS',
+            'academic_year_id' => 'required',
+            'track_id' => 'required_if:grade_level.curriculum_code,SHS',
+            'strand_id' => 'required_if:grade_level.curriculum_code,SHS',
+        ],
+        [
+
+            'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
+            'track_id.required_if' => 'Curriculum is SHS, track is required.',
+            'strand_id.required_if' => 'Curriculum is SHS, strand is required.',
+
+        ]);
+
+       
+
+        $currCode = $req->grade_level['curriculum_code'];
+        $gradeLevel = $req->grade_level['grade_level'];
+
+        $data = Enroll::find($id);
+        $data->learner_status = $req->learner_status;
+      
+        $data->grade_level = $gradeLevel;
+        $data->section_id = $req->section_id;
+        $data->academic_year_id = $req->academic_year_id;
+
+        $data->semester_id = $currCode == 'SHS' ? $req->semester_id : null;
+        $data->track_id = $currCode == 'SHS' ? $req->track_id : null;
+        $data->strand_id = $currCode == 'SHS' ? $req->strand_id : null;
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
+
+    }
+
     public function destroy($id){
         Enroll::destroy($id);
         return response()->json([

@@ -5,4 +5,4 @@
   NodeJS
   HTML
   CSS
-  VueJS
+  VueJS 2

@@ -14,6 +14,12 @@
                                     
                             <div class="divider">LEARNER INFORMATION</div>
 
+                            <b-notification 
+                                type="is-warning is-light" 
+                                aria-close-label="Close notification">
+                                Only enabled fields can be updated.
+                            </b-notification>
+
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Learner Status"
@@ -24,8 +30,8 @@
                                             icon="keyboard-return"
                                             placeholder="Learner Status"
                                             v-model="fields.learner_status">
-                                            <option value="YES">YES</option>
-                                            <option value="NO">NO</option>
+                                            <option value="OLD">OLD</option>
+                                            <option value="NEW">NEW</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -37,6 +43,7 @@
                                         :message="errors.balik_aral ? errors.balik_aral[0] : ''">
                                         <b-select expanded
                                             required
+                                            disabled
                                             icon="keyboard-return"
                                             placeholder="Returnee (Balik-Aral)"
                                             v-model="fields.balik_aral">
@@ -154,8 +161,30 @@
 
                         <!-- SECTIONS/STRANDS/ACADEMIC TRACK -->
                             <div class="divider">SECTIONS/STRANDS/ACADEMIC TRACK</div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Academic Year" expanded
+                                        :type="errors.academic_year_id ? 'is-danger':''"
+                                        :message="errors.academic_year_id ? errors.academic_year_id[0] : ''">
+                                        <b-select 
+                                            v-model="fields.academic_year_id" 
+                                            expanded
+                                            icon="calendar"
+                                            placeholder="Academic Year">
+                                            <option 
+                                                :value="item.academic_year_id" 
+                                                v-for="(item, ix) in academicYears" :key="`ay${ix}`">
+                                                {{  item.academic_year_code }} - {{ item.academic_year_desc   }}
+                                            </option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                
+                            </div>
                             
                             <div class="columns">
+                               
                                 <div class="column">
                                     <b-field label="Grade Level"
                                         expanded
@@ -165,6 +194,7 @@
                                             expanded
                                             icon="star"
                                             placeholder="Grade Level"
+                                            @input="loadSections"
                                             v-model="fields.grade_level"
                                             required>
                                             <option :value="{ grade_level: item.grade_level, curriculum_code: item.curriculum_code }"
@@ -194,52 +224,14 @@
                                 </div>
                             </div>
 
-                            <div v-if="fields.balik_aral === 'YES'">
- 
                             
-                                <div class="columns">
-                                    
-
-                                    <div class="column">
-                                        <b-field label="Last Year Completed"
-                                            :type="errors.last_year_completed ? 'is-danger':''"
-                                            :message="errors.last_year_completed ? errors.last_year_completed[0] : ''">
-                                            <b-input v-model="fields.last_year_completed"
-                                                icon="calendar"
-                                                maxlength="20"
-                                                type="text" 
-                                                placeholder="Last Year Completed"></b-input>
-                                        </b-field>
-                                    </div>
-                                </div>
-                                <div class="columns">
-                                    <div class="column">
-                                        <b-field label="Last School Attended"
-                                            :type="errors.last_school_attended ? 'is-danger':''"
-                                            :message="errors.last_school_attended ? errors.last_school_attended[0] : ''">
-                                            <b-input type="text" v-model="fields.last_school_attended" 
-                                                placeholder="Last School Attended"
-                                                maxlength="100"></b-input>
-                                        </b-field>
-                                    </div> <!--col-->
-                                    <div class="column">
-                                        <b-field label="Last School Id"
-                                            :type="errors.last_school_id ? 'is-danger':''"
-                                            :message="errors.last_school_id ? errors.last_school_id[0] : ''">
-                                            <b-input type="text" v-model="fields.last_school_id" 
-                                                maxlength="15"
-                                                placeholder="Last School Id"></b-input>
-                                        </b-field>
-                                    </div> <!--col--> 
-                                </div>
-                            </div>
-
 
                             <div v-if="fields.grade_level.curriculum_code === 'SHS'">
                                 <!-- LEARNER IN SHS -->
                                 <div class="divider">FOR LEARNERS IN SENIOR HIGH SCHOOL</div>
 
                                 <div class="columns">
+
                                     <div class="column">
                                         <b-field label="Semester" expanded
                                             :type="errors.semester_id ? 'is-danger':''"
@@ -254,20 +246,6 @@
                                         </b-field>
                                     </div>
 
-                                    <div class="column">
-                                        <b-field label="School Id"
-                                            :type="errors.senior_high_school_id ? 'is-danger':''"
-                                            :message="errors.senior_high_school_id ? errors.senior_high_school_id[0] : ''">
-                                            <b-input v-model="fields.senior_high_school_id"
-                                                icon="id-card"
-                                                maxlength="20"
-                                                type="text" placeholder="School Id"></b-input>
-                                        </b-field>
-                                    </div>
-                                </div>
-
-
-                                <div class="columns">
                                     <div class="column">
                                         <b-field label="Track"
                                                 :type="this.errors.track_id ? 'is-danger':''"
@@ -296,16 +274,15 @@
                                             </b-select>
                                         </b-field>
                                     </div>
+
+                                    
                                 </div>
                             </div>
-
-                            
-                            
 
 
                             <hr>
                             <div class="buttons is-right">
-                                <button :class="btnClass">Register</button>
+                                <button :class="btnClass">Update Information</button>
                             </div>
 
                         </div> <!--panel -body-->
@@ -343,8 +320,8 @@ export default {
                 birthdate: null,
                 formatted_bdate: null,
                 birthplace: null,
-
-                semester: null,
+                academic_year_id: null,
+                semester_id: null,
                 track_id: null,
                 strand_id: null,
 
@@ -352,15 +329,7 @@ export default {
 
             errors: {},
             gradeLevels: [],
-  
-            current_provinces: [],
-            current_cities: [],
-            current_barangays: [],
-
-            permanent_provinces: [],
-            permanent_cities: [],
-            permanent_barangays: [],
-
+            academicYears: [],
             semesters: [],
             tracks: [],
             strands: [],
@@ -375,41 +344,42 @@ export default {
     },
     methods: {
         //ADDRESS
-        loadProvinces: function(){
-            axios.get('/load-provinces').then(res=>{
-                this.current_provinces = res.data;
-                this.permanent_provinces = res.data;
+        // loadProvinces: function(){
+        //     axios.get('/load-provinces').then(res=>{
+        //         this.current_provinces = res.data;
+        //         this.permanent_provinces = res.data;
+        //     })
+        // },
+        // loadCurrentCities: function(){
+        //     axios.get('/load-cities?prov=' + this.fields.current_province).then(res=>{
+        //         this.current_cities = res.data;
+        //     })
+        // },
+
+        // loadCurrentBarangays: function(){
+        //     axios.get('/load-barangays?prov=' + this.fields.current_province + '&city_code='+this.fields.current_city).then(res=>{
+        //         this.current_barangays = res.data;
+        //     })
+        // },
+
+        // loadPermanentCities: function(){
+        //     axios.get('/load-cities?prov=' + this.fields.permanent_province).then(res=>{
+        //         this.permanent_cities = res.data;
+        //     })
+        // },
+
+        // loadPermanentBarangays: function(){
+        //     axios.get('/load-barangays?prov=' + this.fields.permanent_province + '&city_code='+this.fields.permanent_city).then(res=>{
+        //         this.permanent_barangays = res.data;
+        //     })
+        // },
+
+
+        async loadAcademicYears(){
+            axios.get('/load-academic-years').then(res=>{
+                this.academicYears = res.data;
             })
         },
-        loadCurrentCities: function(){
-            axios.get('/load-cities?prov=' + this.fields.current_province).then(res=>{
-                this.current_cities = res.data;
-            })
-        },
-
-        loadCurrentBarangays: function(){
-            axios.get('/load-barangays?prov=' + this.fields.current_province + '&city_code='+this.fields.current_city).then(res=>{
-                this.current_barangays = res.data;
-            })
-        },
-
-        loadPermanentCities: function(){
-            axios.get('/load-cities?prov=' + this.fields.permanent_province).then(res=>{
-                this.permanent_cities = res.data;
-            })
-        },
-
-        loadPermanentBarangays: function(){
-            axios.get('/load-barangays?prov=' + this.fields.permanent_province + '&city_code='+this.fields.permanent_city).then(res=>{
-                this.permanent_barangays = res.data;
-            })
-        },
-
-
-
-
-        //ADDRESS
-
         loadSemesters(){
             axios.get('/load-semesters').then(res=>{
                 this.semesters = res.data;
@@ -425,16 +395,13 @@ export default {
                 this.strands = res.data;
             })
         },
-        loadGradeLevels(){
+        async loadGradeLevels(){
             axios.get('/load-grade-levels').then(res=>{
                 this.gradeLevels = res.data;
-                //console.log(this.gradeLevels);
             })
         },
 
-        loadSections(){
-            console.log(this.fields.grade_level.grade_level);
-
+        async loadSections(){
             axios.get('/load-section?grade=' + this.fields.grade_level.grade_level).then(res=>{
                 this.sections = res.data;
             })
@@ -463,95 +430,41 @@ export default {
 
         submit(){
             this.errors = {}; //clear all errors, to refresh errors
-            if(this.fields.birthdate ==  null){
-                this.$buefy.dialog.alert({
-                    title: "EMPTY!",
-                    message: 'Birthdate is empty.',
-                    type: 'is-danger',
-                    onConfirm: ()=>  {
-                        return;
-                    }
-                });
-            }
 
+            this.btnClass['is-loading'] = true
+            axios.put('/enrollee/' + this.propDataId, this.fields).then(res=>{
+                this.btnClass['is-loading'] = false
 
-            //alternative
-            const formatted_bdate = this.fields.birthdate.getFullYear() + '-' 
-                + (this.fields.birthdate.getMonth() + 1).toString().padStart(2, "0") + '-' 
-                + (this.fields.birthdate.getDate()).toString().padStart(2,'0')
+                if(res.data.status === 'updated'){
+                    this.$buefy.dialog.alert({
+                        title: "UPDATED!",
+                        message: 'Learner successfully updated.',
+                        type: 'is-success',
+                        onConfirm: ()=>  window.location = '/enrollee'
+                    });
+                }
+            }).catch(err=>{
+                this.btnClass['is-loading'] = false
 
-
-            this.fields.formatted_bdate = formatted_bdate;
-
-            if(this.id > 0){
-                /* update */
-                this.btnClass['is-loading'] = true
-                axios.put('/manage-learners/' + this.id, this.fields).then(res=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(res.data.status === 'updated'){
-                        this.$buefy.dialog.alert({
-                            title: "UPDATED!",
-                            message: 'Data successfully updated.',
-                            type: 'is-success',
-                            onConfirm: ()=>  window.location = '/manage-learners'
-                        });
-                    }
-                }).catch(err=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                        this.$buefy.dialog.alert({
-                            title: 'Error!',
-                            hasIcon: true,
-                            message: 'Some fields are required. Please check fields marked red.',
-                            type: 'is-danger',
-                        })
-                    }else{
-                        alert('An error occured.');
-                    }
-                });
-            }else{
-                /* insert */
-                this.btnClass['is-loading'] = true
-
-                axios.post('/manage-learners', this.fields).then(res=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(res.data.status === 'saved'){
-                        this.$buefy.dialog.alert({
-                            title: "SAVED!",
-                            message: 'Data successfully saved.',
-                            type: 'is-success',
-                            onConfirm: ()=>  window.location = '/manage-learners'
-                        });
-                    }
-                }).catch(err=>{
-                    this.btnClass['is-loading'] = false
-
-                    if(err.response.status === 422){
-                        this.errors = err.response.data.errors;
-                        this.$buefy.dialog.alert({
-                            title: 'Error!',
-                            hasIcon: true,
-                            message: 'Some fields are required. Please check fields marked red.',
-                            type: 'is-danger',
-                        })
-                    }else{
-                        alert('An error occured.');
-                    }
-                });
-            }
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                    this.$buefy.dialog.alert({
+                        title: 'Error!',
+                        hasIcon: true,
+                        message: 'Some fields are required. Please check fields marked red.',
+                        type: 'is-danger',
+                    })
+                }else{
+                    alert('An error occured.');
+                }
+            });
 
         },
 
         async initData(){
-            await this.loadProvinces();
- 
-            await this.loadSemesters()
-            await this.loadTracks()
-
+            //await this.loadProvinces();
+            this.loadAcademicYears()
+            this.loadTracks()
 
             if(this.propDataId > 0){
                 this.setData();
@@ -561,24 +474,17 @@ export default {
         
 
         async setData(){
-            console.log(data)
-
             this.btnClass['is-loading'] = true
 
             let data = JSON.parse(this.propData)
             this.id = data.learner_id
 
-            console.log(data)
-
             this.fields.balik_aral = data.learner.balik_aral
             this.fields.learner_status = data.learner_status
-
-            
             
             this.loadSections()
 
-
-            this.fields.lrn = data.learner.lrn
+            this.fields.learner_status = data.learner_status
             this.fields.student_id = data.learner.student_id
             this.fields.lname = data.learner.lname
             this.fields.fname = data.learner.fname
@@ -588,18 +494,25 @@ export default {
             this.fields.birthdate = new Date(data.learner.birthdate)
             this.fields.birthplace = data.learner.birthplace
             this.fields.age = data.age
-           
-            await this.loadGradeLevels()
-            this.fields.grade_level = { grade_level: data.grade_level.grade_level, curriculum_code: data.grade_level.curriculum_code }
-            await this.loadSections()
-            this.fields.section_id = data.section.section_id
             
+         
+            this.fields.academic_year_id = data.academic_year_id
+            await this.loadSemesters()
+            this.fields.semester_id = data.semester_id
+            
+            
+            await this.loadGradeLevels().then(()=>{
+                this.fields.grade_level = { grade_level: data.grade_level.grade_level, curriculum_code: data.grade_level.curriculum_code }
 
-            // this.fields.semester_id = data.semester_id
-            // this.fields.senior_high_school_id = data.senior_high_school_id
-            // this.fields.track_id = data.track_id
-            // await this.loadStrands()
-            // this.fields.strand_id = data.strand_id
+                this.loadSections().then(()=>{
+                    this.fields.section_id = data.section.section_id
+                })
+            })
+
+            
+            this.fields.track_id = data.track_id
+            await this.loadStrands()
+            this.fields.strand_id = data.strand_id
             this.btnClass['is-loading'] = false
 
         },

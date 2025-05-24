@@ -25,8 +25,10 @@ class Enroll extends Model
         'admission_date',
         'date_enrolled',
         'is_enrolled',
-        'status', 'school_transfered', 'date_transfered', 'reason',
-        'section_id',
+        'status', 
+        'school_transfered', 
+        'date_transfered', 
+        'reason'
     ];
 
     public function academic_year(){

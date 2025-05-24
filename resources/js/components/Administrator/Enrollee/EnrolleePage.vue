@@ -105,8 +105,8 @@
                                 {{ props.row.learner.sex }}
                             </b-table-column>
 
-                            <b-table-column field="grade_level" label="Grade Level" v-slot="props">
-                                {{ props.row.grade_level }}
+                            <b-table-column field="grade_level" label="Grade/Section" v-slot="props">
+                                {{ props.row.grade_level }} / {{ props.row.section.section }}
                             </b-table-column>
 
                             <b-table-column field="grade_level" label="Enrollment Status" v-slot="props">
