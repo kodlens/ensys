@@ -20,18 +20,18 @@ class AddressController extends Controller
 
 
     public function loadCities(Request $req){
-        $provCode = $req->prov;
-        $cities = City::where('provCode', $provCode)
+        $id = $req->prov;
+        $cities = City::where('id', $id)
             ->orderBy('citymunDesc', 'asc')
             ->get();
         return $cities;
     }
 
     public function loadBarangays(Request $req){
-        $provCode = $req->prov;
-        $cityCode = $req->city_code;
+        $provId = $req->prov;
+        $cityId = $req->city_code;
 
-        $barangays = Barangay::where('provCode', $provCode)
+        $barangays = Barangay::where('id', $provId)
             ->where('citymunCode', $cityCode)
             ->orderBy('brgyDesc', 'asc')
             ->get();

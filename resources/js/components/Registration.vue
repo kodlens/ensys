@@ -250,19 +250,19 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Province" expanded
-                                        :type="this.errors.current_province ? 'is-danger':''"
-                                        :message="this.errors.current_province ? this.errors.current_province[0] : ''">
-                                        <b-select v-model="fields.current_province" expanded placeholder="Province" @input="loadCurrentCities">
-                                            <option v-for="(item, index) in current_provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
+                                        :type="this.errors.current_province_id ? 'is-danger':''"
+                                        :message="this.errors.current_province_id ? this.errors.current_province_id[0] : ''">
+                                        <b-select v-model="fields.current_province_id" expanded placeholder="Province" @input="loadCurrentCities">
+                                            <option v-for="(item, index) in current_provinces" :key="index" :value="item.id">{{ item.provDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="City/Municipality" expanded
-                                             :type="this.errors.current_city ? 'is-danger':''"
-                                             :message="this.errors.current_city ? this.errors.current_city[0] : ''">
-                                        <b-select expanded v-model="fields.current_city" placeholder="City" @input="loadCurrentBarangays">
-                                            <option v-for="(item, index) in current_cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
+                                             :type="this.errors.current_city_id ? 'is-danger':''"
+                                             :message="this.errors.current_city_id ? this.errors.current_city_id[0] : ''">
+                                        <b-select expanded v-model="fields.current_city_id" placeholder="City" @input="loadCurrentBarangays">
+                                            <option v-for="(item, index) in current_cities" :key="index" :value="item.id">{{ item.citymunDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -271,10 +271,10 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Barangay" expanded
-                                             :type="this.errors.current_barangay ? 'is-danger':''"
-                                             :message="this.errors.current_barangay ? this.errors.current_barangay[0] : ''">
-                                        <b-select v-model="fields.current_barangay" expanded placeholder="Barangay">
-                                            <option v-for="(item, index) in current_barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
+                                             :type="this.errors.current_barangay_id ? 'is-danger':''"
+                                             :message="this.errors.current_barangay_id ? this.errors.current_barangay_id[0] : ''">
+                                        <b-select v-model="fields.current_barangay_id" expanded placeholder="Barangay">
+                                            <option v-for="(item, index) in current_barangays" :key="index" :value="item.id">{{ item.brgyDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -310,19 +310,19 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Province" expanded
-                                :type="this.errors.permanent_province ? 'is-danger':''"
-                                        :message="this.errors.permanent_province ? this.errors.permanent_province[0] : ''">
-                                        <b-select v-model="fields.permanent_province" expanded placeholder="Province" @input="loadPermanentCities">
-                                            <option v-for="(item, index) in permanent_provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
+                                :type="errors.permanent_province_id ? 'is-danger':''"
+                                        :message="errors.permanent_province_id ? errors.permanent_province_id[0] : ''">
+                                        <b-select v-model="fields.permanent_province_id" expanded placeholder="Province" @input="loadPermanentCities">
+                                            <option v-for="(item, index) in permanent_provinces" :key="index" :value="item.id">{{ item.provDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
                                 <div class="column">
                                     <b-field label="City/Municipality" expanded
-                                             :type="this.errors.permanent_city ? 'is-danger':''"
-                                             :message="this.errors.permanent_city ? this.errors.permanent_city[0] : ''">
-                                        <b-select expanded v-model="fields.permanent_city" placeholder="City" @input="loadPermanentBarangays">
-                                            <option v-for="(item, index) in permanent_cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
+                                            :type="errors.permanent_city_id ? 'is-danger':''"
+                                            :message="errors.permanent_city_id ? errors.permanent_city_id[0] : ''">
+                                        <b-select expanded v-model="fields.permanent_city_id" placeholder="City" @input="loadPermanentBarangays">
+                                            <option v-for="(item, index) in permanent_cities" :key="index" :value="item.id">{{ item.citymunDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -331,10 +331,10 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Barangay" expanded
-                                             :type="this.errors.permanent_barangay ? 'is-danger':''"
-                                             :message="this.errors.permanent_barangay ? this.errors.permanent_barangay[0] : ''">
-                                        <b-select v-model="fields.permanent_barangay" expanded placeholder="Barangay">
-                                            <option v-for="(item, index) in permanent_barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
+                                            :type="errors.permanent_barangay_id ? 'is-danger':''"
+                                            :message="errors.permanent_barangay_id ? errors.permanent_barangay_id[0] : ''">
+                                        <b-select v-model="fields.permanent_barangay_id" expanded placeholder="Barangay">
+                                            <option v-for="(item, index) in permanent_barangays" :key="index" :value="item.id">{{ item.brgyDesc }}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -348,10 +348,10 @@
 
                                 <div class="column">
                                     <b-field label="Zip Code"
-                                        :type="this.errors.permanent__zipcode ? 'is-danger':''"
-                                        :message="this.errors.permanent__zipcode ? this.errors.permanent__zipcode[0] : ''">
+                                        :type="errors.permanent_zipcode ? 'is-danger':''"
+                                        :message="errors.permanent_zipcode ? errors.permanent_zipcode[0] : ''">
                                         <b-input type="text"
-                                            v-model="fields.permanent__zipcode"
+                                            v-model="fields.permanent_zipcode"
                                             placeholder="Zip Code"></b-input>
                                     </b-field>
                                 </div>
@@ -678,15 +678,15 @@ export default {
                 age: null,
 
 
-                current_province: null,
-                current_city: null,
-                current_barangay: null,
+                current_province_id: null,
+                current_city_id: null,
+                current_barangay_id: null,
                 current_street: null,
                 current_zipcode: null,
 
-                permanent_province: null,
-                permanent_city: null,
-                permanent_barangay: null,
+                permanent_province_id: null,
+                permanent_city_id: null,
+                permanent_barangay_id: null,
                 permanent_street: null,
                 permanent_zipcode: null,
 
@@ -750,25 +750,25 @@ export default {
             })
         },
         loadCurrentCities: function(){
-            axios.get('/load-cities?prov=' + this.fields.current_province).then(res=>{
+            axios.get('/load-cities?prov=' + this.fields.current_province_id).then(res=>{
                 this.current_cities = res.data;
             })
         },
 
         loadCurrentBarangays: function(){
-            axios.get('/load-barangays?prov=' + this.fields.current_province + '&city_code='+this.fields.current_city).then(res=>{
+            axios.get('/load-barangays?prov=' + this.fields.current_province_id + '&city='+this.fields.current_city_id).then(res=>{
                 this.current_barangays = res.data;
             })
         },
 
         loadPermanentCities: function(){
-            axios.get('/load-cities?prov=' + this.fields.permanent_province).then(res=>{
+            axios.get('/load-cities?prov=' + this.fields.permanent_province_id).then(res=>{
                 this.permanent_cities = res.data;
             })
         },
 
         loadPermanentBarangays: function(){
-            axios.get('/load-barangays?prov=' + this.fields.permanent_province + '&city_code='+this.fields.permanent_city).then(res=>{
+            axios.get('/load-barangays?prov=' + this.fields.permanent_province_id + '&city='+this.fields.permanent_city_id).then(res=>{
                 this.permanent_barangays = res.data;
             })
         },

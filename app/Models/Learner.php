@@ -41,16 +41,24 @@ class Learner extends Model
 
         //'last_school_attended',
         
+        'current_country_id',
         'current_country',
+        'current_province_id',
         'current_province',
+        'current_city_id',
         'current_city',
+        'current_barangay_id',
         'current_barangay',
         'current_street',
         'current_zipcode',
 
+        'permanent_country_id',
         'permanent_country',
+        'permanent_province_id',
         'permanent_province',
+        'permanent_city_id',
         'permanent_city',
+        'permanent_barangay_id',
         'permanent_barangay',
         'permanent_street',
         'permanent_zipcode',
@@ -61,7 +69,6 @@ class Learner extends Model
 
         'mother_tongue',
         
-
         'father_lname',
         'father_fname',
         'father_mname',
