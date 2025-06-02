@@ -127,24 +127,24 @@ class Learner extends Model
 
 
     public function current_province(){
-        return $this->hasOne(Province::class, 'provCode', 'current_province');
+        return $this->hasOne(Province::class, 'id', 'current_province_id');
     }
     public function current_city(){
-        return $this->hasOne(City::class, 'citymunCode', 'current_city');
+        return $this->hasOne(City::class, 'id', 'current_city_id');
     }
     public function current_barangay(){
-        return $this->hasOne(Barangay::class, 'brgyCode', 'current_barangay');
+        return $this->hasOne(Barangay::class, 'id', 'current_barangay_id');
     }
 
     
     public function permanent_province(){
-        return $this->hasOne(Province::class, 'provCode', 'permanent_province');
+        return $this->hasOne(Province::class, 'id', 'permanent_province_id');
     }
     public function permanent_city(){
-        return $this->hasOne(City::class, 'citymunCode', 'permanent_city');
+        return $this->hasOne(City::class, 'id', 'permanent_city_id');
     }
     public function permanent_barangay(){
-        return $this->hasOne(Barangay::class, 'brgyCode', 'permanent_barangay');
+        return $this->hasOne(Barangay::class, 'id', 'permanent_barangay_id');
     }
 
 

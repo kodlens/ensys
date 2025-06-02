@@ -36,14 +36,21 @@
             font-family: 'Roboto', sans-serif;
             font-family: 'Roboto Condensed', sans-serif; 
         } */
+
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0; /* or your background image/color */
+        }
+
     </style>
 </head>
 
 <body>
     
     <div id="app">
-        
-        <b-navbar spaced shadow>
+        <b-navbar spaced shadow fixed-top>
             <template #brand>
                 <b-navbar-item>
                     <img src="/img/tcnhs_logo.png" />
@@ -218,10 +225,6 @@
         @yield('content')
         
     </div>
-
-    <script>
-        
-    </script>
 
 </body>
 

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Learner;
 use Illuminate\Validation\Rule;
 use App\Models\AcademicYear;
-
+use App\Http\Requests\LearnerRequest;
 use Auth;
 
 
@@ -60,74 +60,8 @@ class ManageLearnerController extends Controller
     }
 
 
-    public function store(Request $req){
+    public function store(LearnerRequest $req){
        
-        //return $req;
-
-        $req->validate([
-
-            'grade_level' => ['required'],
-            'balik_aral' => ['required', 'string'],
-            'psa' => ['required', 'string', 'max:15'],
-            'lrn' => ['string', 'max:15'],
-
-            'lname' => ['required', 'string', 'max:50'],
-            'fname' => ['required', 'string', 'max:50'],
-            'sex' => ['required', 'string', 'max:10'],
-            'birthdate' => ['required'],
-            
-            'age' => ['required'],
-
-            'mother_tongue' => ['required', 'string', 'max:50'],
-
-            'is_indigenous' => ['required'],
-            'if_yes_indigenous' => ['required_if:is_indigenous,1'],
-
-            'is_4ps' => ['required'],
-            'household_4ps_id_no' => ['required_if:is_4ps,1'],
-
-            'current_province' => ['required', 'string'],
-            'current_city' => ['required', 'string'],
-            'current_barangay' => ['required', 'string'],
-            //'current_zipcode' => ['max:15', 'string'],
-
-            'permanent_province' => ['required', 'string'],
-            'permanent_city' => ['required', 'string'],
-            'permanent_barangay' => ['required', 'string'],
-            //'permanent_zipcode' => ['max:15', 'string'],
-
-            // 'guardian_lname' => ['required', 'string'],
-            // 'guardian_fname' => ['required', 'string'],
-            // 'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
-
-            'last_grade_level' => ['required_if:balik_aral,YES'],
-            'last_year_completed' => ['required_if:balik_aral,YES'],
-            'last_school_attended' => ['required_if:balik_aral,YES'],
-            'last_school_id' => ['required_if:balik_aral,YES'],
-
-            'semester_id' => ['required_if:grade_level.curriculum_code,SHS'],
-            'track_id' => ['required_if:grade_level.curriculum_code,SHS'],
-            'strand_id' => ['required_if:grade_level.curriculum_code,SHS'],
-
-        ],[
-            'if_yes_indigenous.required'=> 'This field is required since you are indigenous.',
-            'household_4ps_id_no.required'=> 'This field is required since you are a 4ps member.',
-
-            'guardian_contact_no.regex' => 'Please enter a valid Philippines mobile phone number.',
-
-            'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
-            'track_id.required_if' => 'Curriculum is SHS, track is required.',
-            'strand_id.required_if' => 'Curriculum is SHS, strand is required.',
-                        
-            'last_grade_level_completed.required' => 'This field is required since you are a returnee student.',
-            'last_school_year_completed.required' => 'This field is required since you are a returnee student.',
-            'last_school_attended.required' => 'This field is required since you are a returnee student.',
-            'last_schoold_id.required' => 'This field is required since you are a returnee student.'
-
-        ]);
-
-   
-
         $ay = AcademicYear::where('is_active', 1)->first();
         $user = Auth::user();
         /*inserting data to database*/
@@ -155,17 +89,17 @@ class ManageLearnerController extends Controller
             'is_4ps' => $req->is_4ps,
             'household_4ps_id_no' => strtoupper($req->household_4ps_id_no),
 
-            'current_province' => $req->current_province,
-            'current_city' => $req->current_city,
-            'current_barangay' => $req->current_barangay,
+            'current_province_id' => $req->current_province_id,
+            'current_city_id' => $req->current_city_id,
+            'current_barangay_id' => $req->current_barangay_id,
             'current_street' => strtoupper($req->current_street),
             'current_zipcode' => $req->current_zipcode,
             // 'religion' => $req->religion,
             // 'email' => $req->email,
             // 'contact_no' => $req->contact_no,
-            'permanent_province' => $req->permanent_province,
-            'permanent_city' => $req->permanent_city,
-            'permanent_barangay' => $req->permanent_barangay,
+            'permanent_province_id' => $req->permanent_province_id,
+            'permanent_city_id' => $req->permanent_city_id,
+            'permanent_barangay_id' => $req->permanent_barangay_id,
             'permanent_street' => strtoupper($req->permanent_street),
             'permanent_zipcode' => $req->permanent_zipcode,
 
@@ -179,7 +113,6 @@ class ManageLearnerController extends Controller
             'mother_maiden_fname' => strtoupper($req->mother_maiden_fname),
             'mother_maiden_mname' => strtoupper($req->mother_maiden_mname),
             'mother_maiden_contact_no' => $req->mother_maiden_contact_no,
-      
 
             'guardian_lname' => strtoupper($req->guardian_lname),
             'guardian_fname' => strtoupper($req->guardian_fname),
@@ -187,14 +120,11 @@ class ManageLearnerController extends Controller
             'guardian_extension' => strtoupper($req->guardian_mname),
             'guardian_contact_no' => $req->guardian_contact_no,
             'guardian_relationship' => strtoupper($req->guardian_relationship),
-    
-            
       
             'last_grade_level' =>  $req->last_grade_level,
             'last_year_completed' => $req->last_year_completed,
             'last_school_attended' => strtoupper($req->last_school_attended),
             'last_school_id' => strtoupper($req->last_school_id),
-
 
             'senior_high_school_id' => strtoupper($req->senior_high_school_id),
             'semester_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->semester_id : null,
@@ -217,72 +147,13 @@ class ManageLearnerController extends Controller
     }
 
     
-    public function update(Request $req, $id){
+    public function update(LearnerRequest $req, $id){
         
-        $req->validate([
-
-            'grade_level' => ['required'],
-            'balik_aral' => ['required', 'string'],
-            'psa' => ['required', 'string', 'max:15'],
-            'lrn' => ['string', 'max:15'],
-
-            'lname' => ['required', 'string', 'max:50'],
-            'fname' => ['required', 'string', 'max:50'],
-            'sex' => ['required', 'string', 'max:10'],
-            'birthdate' => ['required'],
-            
-            'age' => ['required'],
-
-            'mother_tongue' => ['required', 'string', 'max:50'],
-
-            'is_indigenous' => ['required'],
-            'if_yes_indigenous' => ['required_if:is_indigenous,1'],
-
-            'is_4ps' => ['required'],
-            'household_4ps_id_no' => ['required_if:is_4ps,1'],
-
-            'current_province' => ['required', 'string'],
-            'current_city' => ['required', 'string'],
-            'current_barangay' => ['required', 'string'],
-            //'current_zipcode' => ['max:15', 'string'],
-
-            'permanent_province' => ['required', 'string'],
-            'permanent_city' => ['required', 'string'],
-            'permanent_barangay' => ['required', 'string'],
-            //'permanent_zipcode' => ['max:15', 'string'],
-
-            // 'guardian_lname' => ['required', 'string'],
-            // 'guardian_fname' => ['required', 'string'],
-            // 'guardian_contact_no' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
-
-            'last_grade_level' => ['required_if:balik_aral,YES'],
-            'last_year_completed' => ['required_if:balik_aral,YES'],
-            'last_school_attended' => ['required_if:balik_aral,YES'],
-            'last_school_id' => ['required_if:balik_aral,YES'],
-
-            'semester_id' => ['required_if:grade_level.curriculum_code,SHS'],
-            'track_id' => ['required_if:grade_level.curriculum_code,SHS'],
-            'strand_id' => ['required_if:grade_level.curriculum_code,SHS'],
-
-        ],[
-            'guardian_contact_no.regex' => 'Please enter a valid Philippines mobile phone number.',
-
-            'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
-            'track_id.required_if' => 'Curriculum is SHS, track is required.',
-            'strand_id.required_if' => 'Curriculum is SHS, strand is required.',
-                        
-            'last_grade_level_completed.required' => 'This field is required since you are a returnee student.',
-            'last_school_year_completed.required' => 'This field is required since you are a returnee student.',
-            'last_school_attended.required' => 'This field is required since you are a returnee student.',
-            'last_schoold_id.required' => 'This field is required since you are a returnee student.'
-
-        ]);
-
-
         $semesterId = 0;
         $trackId = 0;
         $strandId = 0;
         $seniorHighSchoolId = '';
+        
         if($req->grade_level == 'GRADE 11' || $req->grade_level == 'GRADE 12'){
             $semesterId = $req->semester_id;
             $trackId = $req->track_id;
@@ -316,17 +187,17 @@ class ManageLearnerController extends Controller
                 'is_4ps' => $req->is_4ps,
                 'household_4ps_id_no' => strtoupper($req->household_4ps_id_no),
 
-                'current_province' => $req->current_province,
-                'current_city' => $req->current_city,
-                'current_barangay' => $req->current_barangay,
+                'current_province_id' => $req->current_province_id,
+                'current_city_id' => $req->current_city_id,
+                'current_barangay_id' => $req->current_barangay_id,
                 'current_street' => strtoupper($req->current_street),
                 'current_zipcode' => $req->current_zipcode,
                 // 'religion' => $req->religion,
                 // 'email' => $req->email,
                 // 'contact_no' => $req->contact_no,
-                'permanent_province' => $req->permanent_province,
-                'permanent_city' => $req->permanent_city,
-                'permanent_barangay' => $req->permanent_barangay,
+                'permanent_province_id' => $req->permanent_province_id,
+                'permanent_city_id' => $req->permanent_city_id,
+                'permanent_barangay_id' => $req->permanent_barangay_id,
                 'permanent_street' => strtoupper($req->permanent_street),
                 'permanent_zipcode' => $req->permanent_zipcode,
 
@@ -340,7 +211,6 @@ class ManageLearnerController extends Controller
                 'mother_maiden_fname' => strtoupper($req->mother_maiden_fname),
                 'mother_maiden_mname' => strtoupper($req->mother_maiden_mname),
                 'mother_maiden_contact_no' => $req->mother_maiden_contact_no,
-        
 
                 'guardian_lname' => strtoupper($req->guardian_lname),
                 'guardian_fname' => strtoupper($req->guardian_fname),

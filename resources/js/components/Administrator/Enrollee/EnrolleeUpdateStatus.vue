@@ -13,7 +13,7 @@
                             <b-field label="Select Status"
                                 expanded
                                 :type="errors.status ? 'is-danger':''"
-                                :message="this.errors.status ? this.errors.status[0] : ''">
+                                :message="errors.status ? errors.status[0] : ''">
                                 <b-select v-model="fields.status" expanded>
                                     <option value="WITHDRAW">WITHDRAW</option>
                                     <option value="DROP">DROP</option>
@@ -28,7 +28,7 @@
                             <b-field label="Date"
                                 expanded
                                 :type="errors.date_transfered ? 'is-danger':''"
-                                :message="this.errors.date_transfered ? this.errors.date_transfered[0] : ''">
+                                :message="errors.date_transfered ? errors.date_transfered[0] : ''">
                                 <b-datepicker v-model="fields.date_transfered" expanded></b-datepicker>
                             </b-field>
                         </div>
@@ -39,7 +39,7 @@
                             <b-field label="Reason"
                                 expanded
                                 :type="errors.reason ? 'is-danger':''"
-                                :message="this.errors.reason ? this.errors.reason[0] : ''">
+                                :message="errors.reason ? errors.reason[0] : ''">
                                 <b-input type="textarea" v-model="fields.reason" expanded></b-input>
                             </b-field>
                         </div>
@@ -50,7 +50,7 @@
                             <b-field label="If Transfer (Name of the school)"
                                 expanded
                                 :type="errors.school_transfered ? 'is-danger':''"
-                                :message="this.errors.school_transfered ? this.errors.school_transfered[0] : ''">
+                                :message="errors.school_transfered ? errors.school_transfered[0] : ''">
                                 <b-input type="text" v-model="fields.school_transfered" expanded></b-input>
                             </b-field>
                         </div>

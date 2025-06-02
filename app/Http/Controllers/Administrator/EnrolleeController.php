@@ -54,6 +54,7 @@ class EnrolleeController extends Controller
     }
 
     public function update(Request $req, $id){
+        //return $req;
 
         $req->validate([
             'grade_level' => 'required',
@@ -162,6 +163,7 @@ class EnrolleeController extends Controller
 
 
     public function enrolleeUpdateStatusUpdate(Request $req, $id){
+
         $data = Enroll::find($id);
         $dateStatus = date('Y-m-d', strtotime($req->date_transfered));
 

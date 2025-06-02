@@ -26,6 +26,9 @@ class RegistrationController extends Controller
 
 
     public function store(Request $req){
+
+        //return $req;
+
         $req->validate([
 
             'grade_level' => ['required'],
@@ -48,14 +51,14 @@ class RegistrationController extends Controller
             'is_4ps' => ['required'],
             'household_4ps_id_no' => ['required_if:is_4ps,1'],
 
-            'current_province' => ['required', 'string'],
-            'current_city' => ['required', 'string'],
-            'current_barangay' => ['required', 'string'],
+            'current_province_id' => ['required', 'integer'],
+            'current_city_id' => ['required', 'integer'],
+            'current_barangay_id' => ['required', 'integer'],
             //'current_zipcode' => ['max:15', 'string'],
 
-            'permanent_province' => ['required', 'string'],
-            'permanent_city' => ['required', 'string'],
-            'permanent_barangay' => ['required', 'string'],
+            'permanent_province_id' => ['required', 'integer'],
+            'permanent_city_id' => ['required', 'integer'],
+            'permanent_barangay_id' => ['required', 'integer'],
             //'permanent_zipcode' => ['max:15', 'string'],
 
             //'guardian_lname' => ['required', 'string'],
@@ -81,10 +84,19 @@ class RegistrationController extends Controller
             'last_grade_level_completed.required' => 'This field is required since you are a returnee student.',
             'last_school_year_completed.required' => 'This field is required since you are a returnee student.',
             'last_school_attended.required' => 'This field is required since you are a returnee student.',
-            'last_schoold_id.required' => 'This field is required since you are a returnee student.'
+            'last_schoold_id.required' => 'This field is required since you are a returnee student.',
 
+            'current_province_id.required' => 'Current province is required.',
+            'current_city_id.required' => 'Current city is required.',
+            'current_barangay_id.required' => 'Current barangay is required.',
+
+            'permanent_province_id.required' => 'Permanent province is required.',
+            'permanent_city_id.required' => 'Permanent city is required.',
+            'permanent_barangay_id.required' => 'Permanent barangay is required.'
+            
         ]);
         
+        //return $req;
         /* adding other validation checking for fullname duplicate */
         $existLearner = Learner::where('lname', strtoupper($req->lname))
             ->where('fname', strtoupper($req->fname))
@@ -129,17 +141,17 @@ class RegistrationController extends Controller
                 'is_4ps' => $req->is_4ps,
                 'household_4ps_id_no' => strtoupper($req->household_4ps_id_no),
 
-                'current_province' => $req->current_province,
-                'current_city' => $req->current_city,
-                'current_barangay' => $req->current_barangay,
+                'current_province_id' => $req->current_province_id,
+                'current_city_id' => $req->current_city_id,
+                'current_barangay_id' => $req->current_barangay_id,
                 'current_street' => strtoupper($req->current_street),
                 'current_zipcode' => $req->current_zipcode,
                 // 'religion' => $req->religion,
                 // 'email' => $req->email,
                 // 'contact_no' => $req->contact_no,
-                'permanent_province' => $req->permanent_province,
-                'permanent_city' => $req->permanent_city,
-                'permanent_barangay' => $req->permanent_barangay,
+                'permanent_province_id' => $req->permanent_province_id,
+                'permanent_city_id' => $req->permanent_city_id,
+                'permanent_barangay_id' => $req->permanent_barangay_id,
                 'permanent_street' => strtoupper($req->permanent_street),
                 'permanent_zipcode' => $req->permanent_zipcode,
 
@@ -166,12 +178,10 @@ class RegistrationController extends Controller
                 'last_school_attended' => strtoupper($req->last_school_attended),
                 'last_school_id' => strtoupper($req->last_school_id),
 
-
                 'senior_high_school_id' => strtoupper($req->senior_high_school_id),
                 'semester_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->semester_id : null,
                 'track_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->track_id : null,
                 'strand_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->strand_id : null,
-
                 'administer_by' => 'SELF'
             ]);
 
@@ -180,7 +190,6 @@ class RegistrationController extends Controller
             $id = date('Y') . '-' . str_pad($data->learner_id, 6, '0', STR_PAD_LEFT);
             $updateData->student_id = $id;
             $updateData->save();
-
 
             // If all operations are successful, commit the transaction
             DB::commit();

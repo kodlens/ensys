@@ -31,6 +31,9 @@ class ReportClassListController extends Controller
             ->whereHas('enrollees.academic_year', function($q) use ($ay){
                 $q->where('is_active', 1);
             })
+            ->whereHas('enrollees', function($q) use ($ay){
+                $q->where('status','=', 'WITHDRAW');
+            })
             ->get();
     }
 

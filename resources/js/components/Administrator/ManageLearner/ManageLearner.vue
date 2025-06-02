@@ -77,10 +77,12 @@
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.learner_id)"></b-button>
+                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" 
+                                            @click="getData(props.row.learner_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.learner_id)"></b-button>
+                                        <b-button class="button is-small mr-1" 
+                                            icon-right="delete" @click="confirmDelete(props.row.learner_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
