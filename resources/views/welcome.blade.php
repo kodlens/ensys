@@ -13,7 +13,7 @@
 		<b-button tag="a"
 			href="/registration"
 			type="is-success mt-4"
-			label="REGISTERE HERE"></b-button>
+			label="REGISTER HERE"></b-button>
 	</div>
 
   </div>
