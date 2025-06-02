@@ -62,6 +62,7 @@ class EnrollmentController extends Controller
             'track_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->track_id : null,
             'strand_id' => $req->grade_level['curriculum_code'] == 'SHS' ? $req->strand_id : null,
             'section_id' => $req->section_id,
+            'status' => 'ADMITTED',
             'admission_date' => date('Y-m-d', strtotime($req->admission_date)),
             'administer_by' => $user->username
         ]);

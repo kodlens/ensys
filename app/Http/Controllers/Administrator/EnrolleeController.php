@@ -65,11 +65,9 @@ class EnrolleeController extends Controller
             'strand_id' => 'required_if:grade_level.curriculum_code,SHS',
         ],
         [
-
             'semester_id.required_if' => 'Curriculum is SHS, semester is required.',
             'track_id.required_if' => 'Curriculum is SHS, track is required.',
             'strand_id.required_if' => 'Curriculum is SHS, strand is required.',
-
         ]);
 
        

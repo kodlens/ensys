@@ -32,7 +32,7 @@ class ReportClassListController extends Controller
                 $q->where('is_active', 1);
             })
             ->whereHas('enrollees', function($q) use ($ay){
-                $q->where('status','=', 'WITHDRAW');
+                $q->where('status','=', 'WITHDRAWN');
             })
             ->get();
     }

@@ -15,9 +15,9 @@
                                 :type="errors.status ? 'is-danger':''"
                                 :message="errors.status ? errors.status[0] : ''">
                                 <b-select v-model="fields.status" expanded>
-                                    <option value="WITHDRAW">WITHDRAW</option>
-                                    <option value="DROP">DROP</option>
-                                    <option value="TRANSFER">TRANSFER</option>
+                                    <option value="WITHDRAWN">WITHDRAW</option>
+                                    <option value="DROPPED">DROP</option>
+                                    <option value="TRANSFERED">TRANSFER</option>
                                 </b-select>
                             </b-field>
                         </div>
