@@ -9,6 +9,7 @@ use App\Models\AcademicYear;
 use App\Models\EnrollSubject;
 use Auth;
 use App\Models\Group;
+use App\Models\Section;
 
 class EnrollmentController extends Controller
 {
@@ -19,7 +20,7 @@ class EnrollmentController extends Controller
     }
 
     public function store(Request $req){
-        
+
         $req->validate([
             'learner_id' => ['required'],
             'grade_level' => ['required'],
@@ -37,8 +38,28 @@ class EnrollmentController extends Controller
         //return $req;
         
         $ay = AcademicYear::where('is_active', 1)->first();
+        
         $user = Auth::user();
 
+        //check if maximum no of students
+        $maxNo = Section::where('section_id', $req->section_id)->first()->max;
+        //return $maxNo;
+
+        $countAdmitted = Enroll::where('section_id', $req->section_id)
+            ->where('academic_year_id', $ay->academic_year_id)
+            ->count();
+        
+
+        if($countAdmitted >= $maxNo){
+            return response()->json([
+                'errors' => [
+                    'max' => ['Section is already full.']
+                ],
+                'max' => $maxNo,
+                'count' => $countAdmitted,
+                'message' => 'Section is already full.'
+            ], 422);
+        }
       
         //check if already enrol
         $exist = Enroll::where('learner_id', $req->learner_id)
@@ -47,8 +68,9 @@ class EnrollmentController extends Controller
         if($exist){
             return response()->json([
                 'errors' => [
-                    'message' => ['exist']
-                ]
+                    'exists' => ['This learner is already admitted/enrolled in this semester."']
+                ],
+                'message' => 'This learner is already admitted/enrolled in this semester."'
             ], 422);
         }
 
@@ -78,9 +100,11 @@ class EnrollmentController extends Controller
         EnrollSubject::insert($arr);
 
         //return 'saved';
+         return response()->json([
+            'status' => 'saved',
+            'max' => $maxNo,
+            'count' => $countAdmitted,
 
-        return response()->json([
-            'status' => 'saved'
         ], 200);
 
        

@@ -399,14 +399,27 @@ export default{
             }).catch(err=>{
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors
+                    this.$buefy.dialog.alert({
+                        title: "Error!",
+                        message: err.response.data.message,
+                        type: 'is-danger'
+                    });
 
-                    if(this.errors.message[0] === 'exist'){
-                        this.$buefy.dialog.alert({
-                            title: "Exist!",
-                            message: 'Learner already admitted.',
-                            type: 'is-danger'
-                        });
-                    }
+                    // if(err.response.data.errors.exists){
+                    //     this.$buefy.dialog.alert({
+                    //         title: "Exist!",
+                    //         message: err.response.data.message,
+                    //         type: 'is-danger'
+                    //     });
+                    // }
+                    // console.log(err.response.data.errors)
+                    // if(err.response.data.errors.max){
+                    //     this.$buefy.dialog.alert({
+                    //         title: "Max!",
+                    //         message: err.response.data.message,
+                    //         type: 'is-danger'
+                    //     });
+                    // }
                 }
             })
         },
