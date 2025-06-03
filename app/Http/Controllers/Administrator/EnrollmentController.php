@@ -49,7 +49,7 @@ class EnrollmentController extends Controller
             ->where('academic_year_id', $ay->academic_year_id)
             ->count();
         
-
+        //check if no of enrolled is lesser than max no of section
         if($countAdmitted >= $maxNo){
             return response()->json([
                 'errors' => [
