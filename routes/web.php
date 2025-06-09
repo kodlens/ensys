@@ -230,6 +230,13 @@ Route::middleware(['auth', 'registrar'])->group(function(){
     Route::get('/get-report-no-of-enrolment', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'getReportEnrolmentList']);
     Route::get('/get-report-by-strand', [App\Http\Controllers\Report\ReportNoOfEnrolmentController::class, 'reportCountByStrand']);
     
+
+    // Additional Reports June 9, 2025 - DOST-STII
+    //Eshen
+    Route::get('/report/extract-class-list', [App\Http\Controllers\Report\ReportExtractClassListController::class, 'index']);
+    Route::get('/report/get-extract-class-list', [App\Http\Controllers\Report\ReportExtractClassListController::class, 'get']);
+
+    
     
 
 });

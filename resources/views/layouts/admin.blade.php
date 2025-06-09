@@ -191,6 +191,9 @@
                     <b-navbar-item href="/report-no-of-enrolment">
                         No. of Enrolment
                     </b-navbar-item>
+                    <b-navbar-item href="/report/extract-class-list">
+                        Extract Class List
+                    </b-navbar-item>
                     {{-- <b-navbar-item href="/report-enrolment-list">
                         Enrolment List
                     </b-navbar-item> --}}

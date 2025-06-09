@@ -49,6 +49,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import JsonExcel from "vue-json-excel";
+//vue excel
+//https://github.com/jecovier/vue-json-excel
+Vue.component("downloadExcel", JsonExcel);
+
 
 Vue.use(Buefy)
 
