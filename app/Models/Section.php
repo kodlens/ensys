@@ -33,6 +33,10 @@ class Section extends Model
     public function enrollees(){
         return $this->hasMany(Enroll::class, 'section_id', 'section_id')
             ->leftJoin('learners', 'enrolls.learner_id', 'learners.learner_id')
+            ->where(function($q){
+                $q->where('status', 'ADMITTED')
+                    ->orWhere('status', 'ENROLLED');
+            })
             ->orderBy('learners.lname', 'asc');
     }
 
