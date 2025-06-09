@@ -30,7 +30,10 @@ class ReportExtractClassListController extends Controller
         //     ->orderBy('learner.lname')
         //     ->paginate($req->perpage); 
         
-        $data = Enroll::with(['learner', 'semester', 'track', 'strand', 'section', 'grade_level'])
+        $data = Enroll::with(['learner', 'semester', 'track', 'strand', 'section', 'grade_level',
+            'learner.current_province', 'learner.current_city', 'learner.current_barangay', 
+            'learner.permanent_province', 'learner.permanent_city', 'learner.permanent_barangay'
+            ])
             ->join('learners', 'learners.learner_id', '=', 'enrolls.learner_id') // join the learners table
             ->where('learners.academic_year_id', $ay->academic_year_id)
             ->where(function ($q) {

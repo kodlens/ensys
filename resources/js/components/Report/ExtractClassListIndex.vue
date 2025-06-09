@@ -124,7 +124,6 @@
                             <b-table
                                 :data="data"
                                 :loading="loading"
-                                paginated
                                 backend-pagination
                                 :total="total"
                                 :pagination-rounded="true"
@@ -247,8 +246,6 @@ export default{
             };
         },
 
-
-
         //mga init data
         loadSemesters(){
             axios.get('/load-semesters').then(res=>{
@@ -294,23 +291,80 @@ export default{
             axios.get(`/report/get-extract-class-list?${params}`)
                 .then(({ data }) => {
                     this.data = [];
-                    let currentTotal = data.total
-                    if (data.total / this.perPage > 1000) {
-                        currentTotal = this.perPage * 1000
-                    }
 
-                    this.total = currentTotal
                     data.forEach((item) => {
                         //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
                         this.data.push(item)
                         this.reportData.push({
-                            student_id:item.learner.student_id,
-                            lastname: item.learner.lname,
-                            firstname: item.learner.fname,
-                            middlename: item.learner.mname,
-                            sex: item.learner.sex,
-                            extension: item.learner.extension,
-                        })
+                            'Student Id': item.learner.student_id,
+                            'Last Name': item.learner.lname,
+                            'First Name': item.learner.fname,
+                            'Middle Name': item.learner.mname,
+                            'Sex': item.learner.sex,
+                            'Extension': item.learner.extension,
+                            'Grade Level': item.learner.grade_level,
+                            'Balik Aral': item.learner.balik_aral,
+                            'PSA': item.learner.psa,
+
+                            'LRN': item.learner.lrn ?  "'" + item.learner.lrn : '',
+                            'Birthdate': item.learner.birthdate,
+                            'Birthplace': item.learner.birthplace,
+                            'Age': item.learner.age,
+                            'Mother Tongue': item.learner.mother_tongue,
+                            'Is Indigenous': item.learner.is_indigenous ? 'YES' : 'NO',
+                            'If Yes, Indigenous': item.learner.if_yes_indigenous,
+                            'Is 4Ps': item.learner.is_4ps ? 'YES' : 'NO',
+                            'Household 4Ps ID No.': item.learner.household_4ps_id_no,
+
+                            // Current Address
+                            'Current Province': item.learner.current_province ? item.learner.current_province.provDesc : '',
+                            'Current City': item.learner.current_city ? item.learner.current_city.citymunDesc : '',
+                            'Current Barangay': item.learner.current_barangay ? item.learner.current_barangay.brgyDesc : '',
+                            'Current Street': item.learner.current_street,
+                            'Current Zipcode': item.learner.current_zipcode,
+
+                            // Permanent Address
+                            'Permanent Province': item.learner.permanent_province ? item.learner.permanent_province.provDesc : '',
+                            'Permanent City': item.learner.permanent_city ? item.learner.permanent_city.citymunDesc : '',
+                            'Permanent Barangay': item.learner.permanent_barangay ? item.learner.permanent_barangay.brgyDesc : '',
+                            'Permanent Street': item.learner.permanent_street,
+                            'Permanent Zipcode': item.learner.permanent_zipcode,
+
+                            // Father
+                            'Father Last Name': item.learner.father_lname,
+                            'Father First Name': item.learner.father_fname,
+                            'Father Middle Name': item.learner.father_mname,
+                            'Father Extension': item.learner.father_extension,
+                            'Father Contact No.': item.learner.father_contact_no,
+
+                            // Mother
+                            'Mother Maiden Last Name': item.learner.mother_maiden_lname,
+                            'Mother Maiden First Name': item.learner.mother_maiden_fname,
+                            'Mother Maiden Middle Name': item.learner.mother_maiden_mname,
+                            'Mother Maiden Contact No.': item.learner.mother_maiden_contact_no,
+
+                            // Guardian
+                            'Guardian Last Name': item.learner.guardian_lname,
+                            'Guardian First Name': item.learner.guardian_fname,
+                            'Guardian Middle Name': item.learner.guardian_mname,
+                            'Guardian Extension': item.learner.guardian_extension,
+                            'Guardian Contact No.': item.learner.guardian_contact_no,
+                            'Guardian Relationship': item.learner.guardian_relationship,
+
+                            // Last School Info
+                            'Last Grade Level': item.learner.last_grade_level,
+                            'Last Year Completed': item.learner.last_year_completed,
+                            'Last School Attended': item.learner.last_school_attended,
+                            'Last School ID':  item.learner.last_school_id ? "'" + item.learner.last_school_id : '',
+
+                            // SHS Info
+                            'Semester ID': item.learner.semester ? item.learner.semester.semester : '',
+                            'Senior High School ID': item.learner.senior_high_school_id ? "'" + item.learner.senior_high_school_id : '',
+                            'Track': item.track ? item.track.track : '',
+                            'Strand': item.strand ? item.strand.strand : '',
+                            'Stran Description': item.strand ? item.strand.strand_desc : '',
+
+                        });
                     })
                     this.loading = false
                 })

@@ -124,8 +124,6 @@ class Learner extends Model
         return $this->hasOne(GradeLevel::class, 'grade_level', 'grade_level');
     }
 
-
-
     public function current_province(){
         return $this->hasOne(Province::class, 'id', 'current_province_id');
     }
